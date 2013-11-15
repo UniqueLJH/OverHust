@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.6.+'
+    }
+}
+apply plugin: 'android'
+
+dependencies {
+    compile files('../OverHust/libs/android-support-v4.jar')
+}
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+    }
+}
+
+dependencies {
+}
