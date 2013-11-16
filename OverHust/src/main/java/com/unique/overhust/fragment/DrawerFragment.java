@@ -12,9 +12,10 @@ import com.unique.overhust.R;
  * Created by fhw on 11/15/13.
  */
 public class DrawerFragment extends Fragment{
+    private View drawerView;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
-        View draweView=inflater.inflate(R.id.fragment_drawer,null);
-        return draweView;
+        drawerView=inflater.inflate(R.layout.fragment_drawer,null);
+        return drawerView;
     }
 }
