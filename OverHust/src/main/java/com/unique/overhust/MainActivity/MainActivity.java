@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,28 +18,26 @@ import android.widget.FrameLayout;
 
 import com.unique.overhust.R;
 import com.unique.overhust.fragment.DrawerFragment;
+import com.unique.overhust.fragment.MapFragment;
 
 
 public class MainActivity extends Activity {
-
     private DrawerLayout mDrawerLayout;
     private FrameLayout drawerFrameLyout, contentFrameLyout;
 
     private DrawerFragment mDrawerFragment;
+    private MapFragment mMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         findViews();
+        initDrawer();
+
         //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        //添加左侧的fragment
-        mDrawerFragment = new DrawerFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();   //打开fragment的事物
-        transaction.add(R.id.drawer_frame,mDrawerFragment);
-        transaction.commit();
         /*if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -50,6 +49,21 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerFrameLyout = (FrameLayout) findViewById(R.id.drawer_frame);
         contentFrameLyout = (FrameLayout) findViewById(R.id.content_frame);
+    }
+
+    //添加左侧的fragment
+    public void initDrawer() {
+        mDrawerFragment = new DrawerFragment();
+        mMapFragment = new MapFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();   //打开fragment的事物
+        transaction.add(R.id.drawer_frame, mDrawerFragment);
+        transaction.add(R.id.content_frame, mMapFragment);
+        transaction.commit();
+    }
+
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override
