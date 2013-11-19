@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
         transaction.commit();
     }
 
+    // 关掉左侧抽屉
     public void closeDrawer() {
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
@@ -101,6 +102,5 @@ public class MainActivity extends Activity {
             return rootView;
         }
     }
-
 
 }
