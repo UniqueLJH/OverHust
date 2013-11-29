@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,12 +15,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.tencent.mapapi.map.LocationListener;
+import com.tencent.mapapi.map.LocationManager;
 import com.tencent.street.StreetThumbListener;
 import com.tencent.street.StreetViewListener;
 import com.tencent.street.StreetViewShow;
 import com.tencent.street.map.basemap.GeoPoint;
 import com.tencent.street.overlay.ItemizedOverlay;
 import com.unique.overhust.MainActivity.MainActivity;
+import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.MapUtils.StreetOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
@@ -29,12 +33,12 @@ import java.util.ArrayList;
 /**
  * Created by fhw on 11/17/13.
  */
-public class MapFragment extends Fragment implements StreetViewListener{
+public class MapFragment extends Fragment implements StreetViewListener {
     private ViewGroup streetView;
 
     private ImageView streetImageview;
 
-    private Handler mHandler;
+    private Handler mHandler, locationHandler;
 
     private Context mContext;
 
@@ -43,11 +47,17 @@ public class MapFragment extends Fragment implements StreetViewListener{
     private View mStreetview;
     private View mapView;
 
+    private OverHustLocation mLocation;
+
+    private GeoPoint currentCenter;
+    private double longti, latitu;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mapView = inflater.inflate(R.layout.fragment_map, null);
-        mMainActivity=(MainActivity)getActivity();
-        mContext=mMainActivity;
+        mMainActivity = (MainActivity) getActivity();
+        mContext = mMainActivity;
         findViews();
 
         mHandler = new Handler() {
@@ -57,14 +67,15 @@ public class MapFragment extends Fragment implements StreetViewListener{
             }
         };
 
-        GeoPoint center = new GeoPoint((int) (30.506061 * 1E6), (int) (114.432863 * 1E6));
-
+        mLocation = new OverHustLocation(mContext);
+        mLocation.getLocation();
         String key = "4fb2821bde027e675565c75b32245ad5";
-
-        StreetViewShow.getInstance().showStreetView(mContext,center,100,this,-170,0,key);
+        currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
+        StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
 
         return mapView;
     }
+
 
     public void findViews() {
         streetView = (LinearLayout) mapView.findViewById(R.id.maplayout);
@@ -103,6 +114,7 @@ public class MapFragment extends Fragment implements StreetViewListener{
     }
 
     StreetOverlay overlay;
+
     @Override
     public ItemizedOverlay getOverlay() {
         if (overlay == null) {
@@ -142,12 +154,16 @@ public class MapFragment extends Fragment implements StreetViewListener{
 
     @Override
     public void onNetError() {
-        Log.e("neterror","onNetError");
+        Log.e("neterror", "onNetError");
+
     }
 
     @Override
     public void onDataError() {
-        Log.e("dataerror","onDataError");
+        Log.e("dataerror", "onDataError");
+        //String key = "4fb2821bde027e675565c75b32245ad5";
+        //currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
+        //StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
     }
 
     @Override
