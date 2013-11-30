@@ -1,16 +1,14 @@
 package com.unique.overhust.MapUtils;
 
 
-import android.app.Fragment;
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
 
+import com.tencent.mapapi.map.LocationListener;
+import com.tencent.mapapi.map.LocationManager;
 import com.unique.overhust.fragment.MapFragment;
 
 
@@ -21,7 +19,7 @@ public class OverHustLocation {
     private LocationManager locManager = null;
     private LocationListener locListener = null;
 
-    private double iLongti, iLatitu;
+    public static double iLongti, iLatitu;
 
     private Location mLocation;
     private Context mContext;
@@ -35,7 +33,7 @@ public class OverHustLocation {
     public void getLocation() {
         if (locManager == null) {
 
-            /*locListener = new LocationListener() {
+            locListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
                     if (location == null) {
@@ -51,7 +49,7 @@ public class OverHustLocation {
             };
             locManager = LocationManager.getInstance();
             locManager.requestLocationUpdates(locListener);
-            locManager.enableProvider(mContext);*/
+            locManager.enableProvider(mContext);
 
             //查找到服务信息
             /*Criteria mCriteria = new Criteria();
@@ -62,7 +60,7 @@ public class OverHustLocation {
             mCriteria.setPowerRequirement(Criteria.POWER_LOW);  //低功耗
             String provider = locManager.getBestProvider(mCriteria, true);      //获取gps信息*/
 
-            locManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+            /*locManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
             if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 Log.e("gps", "ok");
                 //gps定位
@@ -142,9 +140,8 @@ public class OverHustLocation {
                     iLongti = mLocation.getLongitude();
                 }
             }
-            Log.e("lo", String.valueOf(mLocation));
+            Log.e("lo", String.valueOf(mLocation));*/
         }
-
 
     }
 
@@ -156,7 +153,14 @@ public class OverHustLocation {
 
     //获得维度值
     public double getiLatitu() {
-        return this.iLatitu;
+        return iLatitu;
     }
 
+    public void setiLatitu(double iLatitu) {
+        this.iLatitu = iLatitu;
+    }
+
+    public void setiLongti(double iLongti) {
+        this.iLongti = iLongti;
+    }
 }

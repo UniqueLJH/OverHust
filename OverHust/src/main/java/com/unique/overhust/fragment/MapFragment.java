@@ -21,6 +21,7 @@ import com.tencent.street.map.basemap.GeoPoint;
 import com.tencent.street.overlay.ItemizedOverlay;
 import com.unique.overhust.MainActivity.MainActivity;
 import com.unique.overhust.MapUtils.DsncLocation;
+import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.MapUtils.StreetOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
@@ -44,7 +45,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
     private View mStreetview;
     private View mapView;
 
-    private DsncLocation mLocation;
+    private OverHustLocation mLocation;
 
     private GeoPoint currentCenter;
 
@@ -62,11 +63,10 @@ public class MapFragment extends Fragment implements StreetViewListener {
                 streetImageview.setImageBitmap((Bitmap) msg.obj);
             }
         };
-
-        mLocation = new DsncLocation(mContext);
-        mLocation.getLocation();
+        mLocation=new OverHustLocation(mContext);
+        Log.e("location",""+mLocation.getiLatitu());
         String key = "4fb2821bde027e675565c75b32245ad5";
-        currentCenter = new GeoPoint((int) (mLocation.getLatitude() * 1E6), (int) (mLocation.getLongitude() * 1E6));
+        currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
         StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
 
         return mapView;

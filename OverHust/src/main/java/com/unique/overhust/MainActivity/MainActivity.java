@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.unique.overhust.MapUtils.DsncLocation;
+import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
 import com.unique.overhust.fragment.DrawerFragment;
 import com.unique.overhust.fragment.MapFragment;
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
 
     private DrawerFragment mDrawerFragment;
     private MapFragment mMapFragment;
+    private OverHustLocation mOverHustLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }*/
+        mOverHustLocation = new OverHustLocation(this);
+        mOverHustLocation.getLocation();
     }
 
     public void findViews() {
@@ -71,8 +76,12 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        }
+        return false;
     }
 
     @Override
