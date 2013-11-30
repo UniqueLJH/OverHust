@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,15 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.tencent.mapapi.map.LocationListener;
-import com.tencent.mapapi.map.LocationManager;
 import com.tencent.street.StreetThumbListener;
 import com.tencent.street.StreetViewListener;
 import com.tencent.street.StreetViewShow;
 import com.tencent.street.map.basemap.GeoPoint;
 import com.tencent.street.overlay.ItemizedOverlay;
 import com.unique.overhust.MainActivity.MainActivity;
-import com.unique.overhust.MapUtils.OverHustLocation;
+import com.unique.overhust.MapUtils.DsncLocation;
 import com.unique.overhust.MapUtils.StreetOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
@@ -47,10 +44,9 @@ public class MapFragment extends Fragment implements StreetViewListener {
     private View mStreetview;
     private View mapView;
 
-    private OverHustLocation mLocation;
+    private DsncLocation mLocation;
 
     private GeoPoint currentCenter;
-    private double longti, latitu;
 
 
     @Override
@@ -67,10 +63,10 @@ public class MapFragment extends Fragment implements StreetViewListener {
             }
         };
 
-        mLocation = new OverHustLocation(mContext);
+        mLocation = new DsncLocation(mContext);
         mLocation.getLocation();
         String key = "4fb2821bde027e675565c75b32245ad5";
-        currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
+        currentCenter = new GeoPoint((int) (mLocation.getLatitude() * 1E6), (int) (mLocation.getLongitude() * 1E6));
         StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
 
         return mapView;

@@ -92,11 +92,20 @@ public class OverHustLocation {
 
                     }
                 };
-                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, locListener);
+                //locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, locListener);
                 mLocation = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (mLocation != null) {
                     iLongti = mLocation.getLongitude();
                     iLatitu = mLocation.getLatitude();
+                }
+                if (mLocation == null && locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                    Log.e("network", "ok");
+                    locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locListener);
+                    mLocation = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (mLocation != null) {
+                        iLatitu = mLocation.getLatitude();
+                        iLongti = mLocation.getLongitude();
+                    }
                 }
             } else {
                 Log.e("network", "ok");

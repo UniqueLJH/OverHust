@@ -18,7 +18,7 @@ import com.unique.overhust.R;
 public class DrawerFragment extends Fragment {
 
     private View drawerView;
-    private ImageView map, navigation, search, schoolbus;
+    private ImageView map, navigation, search, schoolbus, me, setting;
     private MainActivity mMainActivity;
 
     @Override
@@ -41,6 +41,8 @@ public class DrawerFragment extends Fragment {
         navigation = (ImageView) drawerView.findViewById(R.id.navigation);
         search = (ImageView) drawerView.findViewById(R.id.search);
         schoolbus = (ImageView) drawerView.findViewById(R.id.schoolbus);
+        me = (ImageView) drawerView.findViewById(R.id.me);
+        setting = (ImageView) drawerView.findViewById(R.id.setting);
     }
 
     class MyOnClickListener implements View.OnClickListener {
@@ -56,6 +58,10 @@ public class DrawerFragment extends Fragment {
                     mapTransaction.replace(R.id.content_frame, mMapFragment);
                     mapTransaction.commit();
                     mMainActivity.closeDrawer();
+                    map.setImageResource(R.drawable.ic_map_press);
+                    navigation.setImageResource(R.drawable.ic_navigation);
+                    search.setImageResource(R.drawable.ic_search);
+                    schoolbus.setImageResource(R.drawable.ic_schoolbus);
                     break;
                 case R.id.navigation:
                     NavitationFragment mNavitationFragment = new NavitationFragment();
@@ -63,6 +69,10 @@ public class DrawerFragment extends Fragment {
                     navigationTransaction.replace(R.id.content_frame, mNavitationFragment);
                     navigationTransaction.commit();
                     mMainActivity.closeDrawer();
+                    map.setImageResource(R.drawable.ic_map);
+                    navigation.setImageResource(R.drawable.ic_navigation_press);
+                    search.setImageResource(R.drawable.ic_search);
+                    schoolbus.setImageResource(R.drawable.ic_schoolbus);
                     break;
                 case R.id.schoolbus:
                     SchoolbusFragment mSchoolbusFragment = new SchoolbusFragment();
@@ -70,6 +80,10 @@ public class DrawerFragment extends Fragment {
                     schoolbusTransaction.replace(R.id.content_frame, mSchoolbusFragment);
                     schoolbusTransaction.commit();
                     mMainActivity.closeDrawer();
+                    map.setImageResource(R.drawable.ic_map);
+                    navigation.setImageResource(R.drawable.ic_navigation);
+                    search.setImageResource(R.drawable.ic_search);
+                    schoolbus.setImageResource(R.drawable.ic_schoolbus_press);
                     break;
                 case R.id.search:
                     SearchFragment mSearchFragment = new SearchFragment();
@@ -77,6 +91,10 @@ public class DrawerFragment extends Fragment {
                     searchTransaction.replace(R.id.content_frame, mSearchFragment);
                     searchTransaction.commit();
                     mMainActivity.closeDrawer();
+                    map.setImageResource(R.drawable.ic_map);
+                    navigation.setImageResource(R.drawable.ic_navigation);
+                    search.setImageResource(R.drawable.ic_search_press);
+                    schoolbus.setImageResource(R.drawable.ic_schoolbus);
                     break;
                 default:
                     break;

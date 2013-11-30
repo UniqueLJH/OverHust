@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="150dp"
     android:layout_height="match_parent"
     android:id="@+id/fragment_drawer"
     android:background="@drawable/drawer_shadow">
@@ -11,31 +11,47 @@
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_map"
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="30dp"/>
+        android:src="@drawable/map_selector"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="15dp" />
 
     <ImageView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_navigation"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"/>
+        android:src="@drawable/navigation"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="15dp" />
 
     <ImageView
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_search"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"/>
+        android:src="@drawable/search_selector"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="15dp" />
 
     <ImageView
         android:id="@+id/schoolbus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_schoolbus"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"/>
+        android:src="@drawable/schoolbus_selector"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="15dp" />
+
+    <ImageView
+        android:id="@+id/me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/map_selector"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="134dp" />
+
+    <ImageView
+        android:id="@+id/setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/setting_selector"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="2dp" />
 </LinearLayout>
