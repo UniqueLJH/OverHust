@@ -151,15 +151,15 @@ public class MapFragment extends Fragment implements StreetViewListener {
     @Override
     public void onNetError() {
         Log.e("neterror", "onNetError");
-
+        //streetImageview.setImageResource(R.drawable.ic_overhust);
     }
 
     @Override
     public void onDataError() {
         Log.e("dataerror", "onDataError");
-        //String key = "4fb2821bde027e675565c75b32245ad5";
-        //currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
-        //StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
+        String key = "4fb2821bde027e675565c75b32245ad5";
+        currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
+        StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
     }
 
     @Override

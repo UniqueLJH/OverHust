@@ -5,7 +5,8 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,20 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.unique.overhust.MapUtils.DsncLocation;
 import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
 import com.unique.overhust.fragment.DrawerFragment;
-import com.unique.overhust.fragment.MapFragment;
+import com.unique.overhust.fragment.InitFragment;
 
 
 public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private FrameLayout drawerFrameLyout, contentFrameLyout;
-
     private DrawerFragment mDrawerFragment;
-    private MapFragment mMapFragment;
     private OverHustLocation mOverHustLocation;
+    private InitFragment mInitFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,8 @@ public class MainActivity extends Activity {
 
         findViews();
         initDrawer();
+        initFirstInto();
+        mDrawerLayout.openDrawer(GravityCompat.START);
 
         //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
@@ -50,6 +52,14 @@ public class MainActivity extends Activity {
         mOverHustLocation.getLocation();
     }
 
+    public void initFirstInto() {
+        mInitFragment = new InitFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_frame, mInitFragment);
+        transaction.commit();
+    }
+
     public void findViews() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerFrameLyout = (FrameLayout) findViewById(R.id.drawer_frame);
@@ -59,11 +69,9 @@ public class MainActivity extends Activity {
     //添加左侧的fragment
     public void initDrawer() {
         mDrawerFragment = new DrawerFragment();
-        mMapFragment = new MapFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();   //打开fragment的事物
         transaction.add(R.id.drawer_frame, mDrawerFragment);
-        transaction.add(R.id.content_frame, mMapFragment);
         transaction.commit();
     }
 
