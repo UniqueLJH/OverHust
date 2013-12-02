@@ -3,6 +3,7 @@ package com.unique.overhust.fragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.unique.overhust.MainActivity.MainActivity;
+import com.unique.overhust.MainActivity.MeActivity;
+import com.unique.overhust.MainActivity.SettingActivity;
 import com.unique.overhust.R;
 
 /**
@@ -32,6 +35,8 @@ public class DrawerFragment extends Fragment {
         navigation.setOnClickListener(new MyOnClickListener());
         search.setOnClickListener(new MyOnClickListener());
         schoolbus.setOnClickListener(new MyOnClickListener());
+        me.setOnClickListener(new MyOnClickListener());
+        setting.setOnClickListener(new MyOnClickListener());
 
         return drawerView;
     }
@@ -95,6 +100,16 @@ public class DrawerFragment extends Fragment {
                     navigation.setImageResource(R.drawable.ic_navigation);
                     search.setImageResource(R.drawable.ic_search_press);
                     schoolbus.setImageResource(R.drawable.ic_schoolbus);
+                    break;
+                case R.id.me:
+                    mMainActivity.closeDrawer();
+                    Intent meIntent = new Intent(mMainActivity, MeActivity.class);
+                    startActivity(meIntent);
+                    break;
+                case R.id.setting:
+                    mMainActivity.closeDrawer();
+                    Intent settingIntent = new Intent(mMainActivity, SettingActivity.class);
+                    startActivity(settingIntent);
                     break;
                 default:
                     break;

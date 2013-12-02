@@ -1,35 +1,25 @@
 package com.unique.overhust.MainActivity;
 
 import android.app.Activity;
+import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.os.Build;
 
 import com.unique.overhust.R;
 
-public class StartActivity extends Activity {
-
-    private ImageView startView;
+public class SettingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        startView = (ImageView) findViewById(R.id.start);
-        startView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(StartActivity.this, MainActivity.class);
-                startActivity(startIntent);
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_setting);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -40,9 +30,9 @@ public class StartActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
+        
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.start, menu);
+        getMenuInflater().inflate(R.menu.setting, menu);
         return true;
     }
 
@@ -68,8 +58,8 @@ public class StartActivity extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_start, container, false);
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
             return rootView;
         }
     }

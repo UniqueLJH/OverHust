@@ -13,4 +13,5 @@
         android:layout_gravity="center"
         android:background="@drawable/start_selector"
         android:id="@+id/start"/>
+
 </FrameLayout>
