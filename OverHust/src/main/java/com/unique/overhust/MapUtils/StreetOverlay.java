@@ -33,7 +33,6 @@ public class StreetOverlay extends ItemizedOverlay {
 
         // test 更新某个poi信息
         Bitmap bitmap = Bitmap.createBitmap(mPois.get(1).marker);
-
         StreetPoiData poi = mPois.get(index);
         poi.updateMarker(bitmap, bitmap.toString());
         refresh(index);
