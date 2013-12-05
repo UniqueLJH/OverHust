@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.tencent.street.StreetThumbListener;
 import com.tencent.street.StreetViewListener;
@@ -23,16 +24,11 @@ import com.tencent.street.StreetViewShow;
 import com.tencent.street.map.basemap.GeoPoint;
 import com.tencent.street.overlay.ItemizedOverlay;
 import com.unique.overhust.MainActivity.MainActivity;
-import com.unique.overhust.MapUtils.DsncLocation;
 import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.MapUtils.StreetOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -69,7 +65,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                //streetImageview.setImageBitmap((Bitmap) msg.obj);
+                streetImageview.setImageBitmap((Bitmap) msg.obj);
             }
         };
         mLocation=new OverHustLocation(mContext);
@@ -115,6 +111,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
                         Message msg = new Message();
                         msg.obj = bitmap;
                         mHandler.sendMessage(msg);
+
                     }
                 });
     }
@@ -163,6 +160,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
         Log.e("neterror", "onNetError");
         //streetImageview.setImageResource(R.drawable.ic_overhust);
         dismissDialog();
+        mapPreView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -191,9 +189,10 @@ public class MapFragment extends Fragment implements StreetViewListener {
         // LogUtil.logStreet("onAuthFail");
     }
 
-    //加载Dialog
+    //加载progressDialog
     public Dialog showDialog(){
         mDialog=new ProgressDialog(mContext);
+        mDialog.setTitle("OverHust");
         mDialog.setMessage("正在加载街景...");
         mDialog.setIndeterminate(true);
         mDialog.setCancelable(true);
@@ -202,6 +201,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
         return mDialog;
     }
 
+    //销毁progressDialog
     public void dismissDialog(){
         mDialog.dismiss();
     }

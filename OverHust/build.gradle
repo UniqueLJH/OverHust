@@ -12,6 +12,7 @@ dependencies {
     compile files('../OverHust/libs/android-support-v4.jar')
     compile files('../OverHust/libs/SosoMapsdk_raster_v1.0.3.jar')
     compile files('../OverHust/libs/locSDK_3.3.jar')
+    compile files('libs/android-support-v4.jar')
 }
 tasks.withType(Compile) {
     options.encoding = "UTF-8"
