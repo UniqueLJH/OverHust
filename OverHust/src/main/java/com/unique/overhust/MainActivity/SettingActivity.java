@@ -3,7 +3,9 @@ package com.unique.overhust.MainActivity;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import com.unique.overhust.R;
 
 public class SettingActivity extends Activity {
 
+    private MainActivity mMainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,4 +67,14 @@ public class SettingActivity extends Activity {
         }
     }
 
+//    @Override
+//    public boolean onKeyDown(int keyCode,KeyEvent event){
+//        if(keyCode==KeyEvent.KEYCODE_BACK){
+////            Intent meIntent=new Intent(this,MainActivity.class);
+////            startActivity(meIntent);
+//            finish();
+//
+//        }
+//        return false;
+//    }
 }

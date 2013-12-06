@@ -102,14 +102,16 @@ public class DrawerFragment extends Fragment {
                     schoolbus.setImageResource(R.drawable.ic_schoolbus);
                     break;
                 case R.id.me:
-                    mMainActivity.closeDrawer();
+                    //mMainActivity.closeDrawer();
                     Intent meIntent = new Intent(mMainActivity, MeActivity.class);
                     startActivity(meIntent);
+                    //mMainActivity.finish();
                     break;
                 case R.id.setting:
-                    mMainActivity.closeDrawer();
+                    //mMainActivity.closeDrawer();
                     Intent settingIntent = new Intent(mMainActivity, SettingActivity.class);
                     startActivity(settingIntent);
+                    //mMainActivity.finish();
                     break;
                 default:
                     break;

@@ -121,23 +121,23 @@ public class StreetOverlay extends ItemizedOverlay {
             float scale = 1.0f;
 
             // 近大远小功能
-            // final float minScale = 0.8f;
-            // final float maxScale = 1.5f;
-            // final double minDis = 20;
-            // final double maxDis = 40;
-            // final double maxShowDis = 150;
-            //
-            // if(distance < minDis) {
-            // scale = maxScale;
-            // } else if (distance < maxDis) {
-            // scale = (float) (maxScale - (maxScale - minScale) * (distance -
-            // minDis) / (maxDis - minDis));
-            // } else if (distance < maxShowDis) {
-            // scale = minScale;
-            // } else {
-            // scale = SCALE_INVISIBLE;
-            // return scale;
-            // }
+            final float minScale = 0.5f;
+            final float maxScale = 2f;
+            final double minDis = 0;
+            final double maxDis = 100;
+            final double maxShowDis = 300;
+
+            if (distance < minDis) {
+                scale = maxScale;
+            } else if (distance < maxDis) {
+                scale = (float) (maxScale - (maxScale - minScale) * (distance -
+                        minDis) / (maxDis - minDis));
+            } else if (distance < maxShowDis) {
+                scale = minScale;
+            } else {
+                scale = SCALE_INVISIBLE;
+                return scale;
+            }
 
             // 根据视角poi进行缩放
             final float factor = 0.2f; // 根据视角放大倍数对Item缩放的因子

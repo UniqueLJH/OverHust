@@ -3,7 +3,9 @@ package com.unique.overhust.MainActivity;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +22,11 @@ public class MeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+//        if (savedInstanceState == null) {
+//            getFragmentManager().beginTransaction()
+//                    .add(R.id.container, new PlaceholderFragment())
+//                    .commit();
+//        }
     }
 
 
@@ -63,5 +65,15 @@ public class MeActivity extends Activity {
             return rootView;
         }
     }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode,KeyEvent event){
+//        if(keyCode==KeyEvent.KEYCODE_BACK){
+////            Intent meIntent=new Intent(this,MainActivity.class);
+////            startActivity(meIntent);
+//            finish();
+//        }
+//        return false;
+//    }
 
 }

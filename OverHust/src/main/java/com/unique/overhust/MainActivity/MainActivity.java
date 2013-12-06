@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
@@ -31,7 +32,7 @@ public class MainActivity extends Activity {
     private DrawerFragment mDrawerFragment;
     private OverHustLocation mOverHustLocation;
     private InitFragment mInitFragment;
-
+    public static ImageView footImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerFrameLyout = (FrameLayout) findViewById(R.id.drawer_frame);
         contentFrameLyout = (FrameLayout) findViewById(R.id.content_frame);
+        footImageView=(ImageView)findViewById(R.id.foot);
     }
 
     //添加左侧的fragment
@@ -82,6 +84,10 @@ public class MainActivity extends Activity {
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
+    //打开左侧抽屉
+    public void openDrawer(){
+        mDrawerLayout.openDrawer(GravityCompat.START);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

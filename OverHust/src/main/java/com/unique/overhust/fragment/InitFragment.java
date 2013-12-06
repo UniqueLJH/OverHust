@@ -18,11 +18,15 @@ import com.unique.overhust.R;
  */
 public class InitFragment extends Fragment {
     private View initView;
+    private MainActivity mMainActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mMainActivity=(MainActivity)getActivity();
         initView = inflater.inflate(R.layout.fragment_init, null);
+        mMainActivity.openDrawer();
         return initView;
+
     }
 
 }

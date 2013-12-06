@@ -42,6 +42,7 @@ public class OverHustLocation {
                     iLatitu = location.getLatitude();
                     iLongti = location.getLongitude();
                     Log.e("haha", String.valueOf(iLatitu));
+                    Log.e("hehe",""+iLongti);
 
                     setiLatitu(iLatitu);
                     setiLongti(iLongti);

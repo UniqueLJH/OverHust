@@ -9,10 +9,9 @@ buildscript {
 apply plugin: 'android'
 
 dependencies {
-    compile files('../OverHust/libs/android-support-v4.jar')
-    compile files('../OverHust/libs/SosoMapsdk_raster_v1.0.3.jar')
-    compile files('../OverHust/libs/locSDK_3.3.jar')
-    compile files('libs/android-support-v4.jar')
+    compile files('/home/fhw/Documents/android-code/OverHustProject/libs/android-support-v4.jar')
+    compile files('/home/fhw/Documents/android-code/OverHustProject/OverHust/libs/SosoMapsdk_raster_v1.0.3.jar')
+    compile files('/home/fhw/Documents/android-code/OverHustProject/OverHust/libs/locSDK_3.3.jar')
 }
 tasks.withType(Compile) {
     options.encoding = "UTF-8"
