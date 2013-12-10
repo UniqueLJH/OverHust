@@ -7,9 +7,9 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_me">MeActivity</string>
-
     <string name="border_top">Border Top</string>
     <string name="border_bottom">Border Bottom</string>
     <string name="image_url">Image Url</string>
+    <string name="title_activity_search_image">SearchImageActivity</string>
 
 </resources>

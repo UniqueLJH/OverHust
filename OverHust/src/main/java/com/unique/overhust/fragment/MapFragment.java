@@ -74,8 +74,8 @@ public class MapFragment extends Fragment implements StreetViewListener {
         Log.e("location", "" + mLocation.getiLatitu());
         String key = "4fb2821bde027e675565c75b32245ad5";
         currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
-        StreetViewShow.getInstance().destory();
-        streetView.removeAllViewsInLayout();
+        //StreetViewShow.getInstance().destory();
+        //streetView.removeAllViewsInLayout();
         StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
 
         return mapView;

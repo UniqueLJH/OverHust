@@ -299,19 +299,19 @@ public class NavitationFragment extends Fragment implements TextWatcher {
                         getBm(R.drawable.navi_start), 0));
             } else {
 
-                if (MyMap.angle[i + 1] == -1) {
+                if (MyMap.angle[i] == -1) {
                     pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
                             (int) (MyMap.y[path[i]] * 1E6),
                             getBm(R.drawable.left),
                             getBm(R.drawable.left), 0));
-                } else if (MyMap.angle[i + 1] == 1) {
+                } else if (MyMap.angle[i] == 1) {
                     pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
                             (int) (MyMap.y[path[i]] * 1E6),
                             getBm(R.drawable.right),
                             getBm(R.drawable.right), 0));
                 } else {
                     pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
-                            (int) (MyMap.y[path[i + 1]] * 1E6),
+                            (int) (MyMap.y[path[i]] * 1E6),
                             getBm(R.drawable.up),
                             getBm(R.drawable.up), 0));
                 }

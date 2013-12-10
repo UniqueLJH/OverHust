@@ -1,7 +1,10 @@
 package com.unique.overhust.fragment;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,8 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
 import com.unique.overhust.MainActivity.MainActivity;
-import com.unique.overhust.MapUtils.ImageScrollView;
-import com.unique.overhust.MapUtils.Images;
 import com.unique.overhust.MapUtils.SearchCheeses;
 import com.unique.overhust.R;
 
@@ -52,11 +53,12 @@ public class SearchFragment extends Fragment implements TextWatcher {
 
     private InputMethodManager mInputMethodManager;
 
-    private ImageScrollView mImageSrollView;
     private Resources mResources;
     private XmlPullParser parser;
     private AttributeSet attributes;
-    private String[] urls=null;
+    private String[] urls = null;
+
+    public static int KEY;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,21 +75,33 @@ public class SearchFragment extends Fragment implements TextWatcher {
         mListView.setOnItemClickListener(new ListViewListener());
 
 
-        mResources = mContext.getResources();
-        parser = mResources.getXml(R.layout.fragment_search);
-        attributes = Xml.asAttributeSet(parser);
-
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mEditText.getText().toString().contains("食堂")) {
-                    urls = Images.st_image_urls;
-                    mImageSrollView = new ImageScrollView(mContext, attributes);
-                    mImageSrollView.imageUrls=urls;
-                    mImageSrollView.loadMoreImages();
-                    Log.e("search",String.valueOf(urls));
+                    KEY = 1;
+                }
+                else if(mEditText.getText().toString().contains("华科美景")){
+                    KEY=2;
+                }
+                else if(mEditText.getText().toString().contains("教学楼")){
+                    KEY=3;
+                }
+                else if(mEditText.getText().toString().contains("体育馆")){
+                    KEY=4;
+                }
+                else if(mEditText.getText().toString().contains("餐厅")){
+                    KEY=1;
+                }
+                else if(mEditText.getText().toString().contains("操场 ")){
+                    KEY=5;
                 }
                 mRelativeLayout.setVisibility(View.INVISIBLE);
+                FragmentManager fragmentManager = getFragmentManager();
+                PhotoWallFragment mPhotoWallFragment = new PhotoWallFragment();
+                FragmentTransaction searchTransaction = fragmentManager.beginTransaction();
+                searchTransaction.replace(R.id.content_frame, mPhotoWallFragment);
+                searchTransaction.commit();
             }
         });
 

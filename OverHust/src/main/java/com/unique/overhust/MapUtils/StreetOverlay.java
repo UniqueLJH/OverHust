@@ -124,7 +124,7 @@ public class StreetOverlay extends ItemizedOverlay {
             final float minScale = 0.5f;
             final float maxScale = 2f;
             final double minDis = 0;
-            final double maxDis = 100;
+            final double maxDis = 300;
             final double maxShowDis = 300;
 
             if (distance < minDis) {
