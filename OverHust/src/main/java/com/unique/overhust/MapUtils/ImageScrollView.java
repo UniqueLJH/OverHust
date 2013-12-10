@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.unique.overhust.MainActivity.ImageDetailsActivity;
 import com.unique.overhust.R;
 import com.unique.overhust.fragment.SearchFragment;
 
@@ -39,7 +41,7 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
     /**
      * 每页要加载的图片数量
      */
-    public static final int PAGE_SIZE = 10;
+    public static final int PAGE_SIZE = 20;
 
     /**
      * 记录当前已加载到第几页
@@ -364,7 +366,10 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
                 imageView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(getContext(),
+                                ImageDetailsActivity.class);
+                        intent.putExtra("image_path", getImagePath(mImageUrl));
+                        getContext().startActivity(intent);
                     }
                 });
                 findColumnToAdd(imageView, imageHeight).addView(imageView);

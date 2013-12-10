@@ -44,6 +44,10 @@
             android:name="com.unique.overhust.MainActivity.SearchImageActivity"
             android:label="@string/title_activity_search_image" >
         </activity>
+        <activity
+            android:name="com.unique.overhust.MainActivity.ImageDetailsActivity"
+            android:label="@string/title_activity_image_details" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

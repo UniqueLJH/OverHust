@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.unique.overhust.MainActivity.MainActivity;
 import com.unique.overhust.MapUtils.SearchCheeses;
@@ -78,35 +79,43 @@ public class SearchFragment extends Fragment implements TextWatcher {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mEditText.getText().toString().contains("食堂")) {
-                    KEY = 1;
+                if (mEditText.getText().toString().equals("")) {
+                    Toast.makeText(mContext, "请输入查找类别", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (mEditText.getText().toString().contains("食堂")) {
+                        KEY = 1;
+                    } else if (mEditText.getText().toString().contains("华科美景")) {
+                        KEY = 2;
+                    } else if (mEditText.getText().toString().contains("教学楼")) {
+                        KEY = 3;
+                    } else if (mEditText.getText().toString().contains("体育馆")) {
+                        KEY = 4;
+                    } else if (mEditText.getText().toString().contains("餐厅")) {
+                        KEY = 1;
+                    } else if (mEditText.getText().toString().contains("操场 ")) {
+                        KEY = 5;
+                    }else{
+                        Toast.makeText(mContext, "此类别目前没有图片", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mRelativeLayout.setVisibility(View.INVISIBLE);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    PhotoWallFragment mPhotoWallFragment = new PhotoWallFragment();
+                    FragmentTransaction searchTransaction = fragmentManager.beginTransaction();
+                    searchTransaction.replace(R.id.content_frame, mPhotoWallFragment);
+                    searchTransaction.commit();
                 }
-                else if(mEditText.getText().toString().contains("华科美景")){
-                    KEY=2;
-                }
-                else if(mEditText.getText().toString().contains("教学楼")){
-                    KEY=3;
-                }
-                else if(mEditText.getText().toString().contains("体育馆")){
-                    KEY=4;
-                }
-                else if(mEditText.getText().toString().contains("餐厅")){
-                    KEY=1;
-                }
-                else if(mEditText.getText().toString().contains("操场 ")){
-                    KEY=5;
-                }
-                mRelativeLayout.setVisibility(View.INVISIBLE);
-                FragmentManager fragmentManager = getFragmentManager();
-                PhotoWallFragment mPhotoWallFragment = new PhotoWallFragment();
-                FragmentTransaction searchTransaction = fragmentManager.beginTransaction();
-                searchTransaction.replace(R.id.content_frame, mPhotoWallFragment);
-                searchTransaction.commit();
             }
         });
 
         mEditText.addTextChangedListener(this);
 
+        mEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                showList();
+            }
+        });
         return searchView;
     }
 

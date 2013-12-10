@@ -214,7 +214,7 @@ public class NavitationFragment extends Fragment implements TextWatcher {
         // TODO Auto-generated method stub
 
         MyMap.findpath(sx, sy, ex, ey);
-        addPoins(MyMap.path);
+        addPoins(MyMap.path,ex,ey);
         mListener = new StreetViewListener() {
 
             @Override
@@ -284,7 +284,7 @@ public class NavitationFragment extends Fragment implements TextWatcher {
 
     }
 
-    private void addPoins(int[] path) {
+    private void addPoins(int[] path,double ex,double ey) {
         // TODO Auto-generated method stub
         overlay = null;
         ArrayList<StreetPoiData> pois = new ArrayList<StreetPoiData>();
@@ -295,16 +295,16 @@ public class NavitationFragment extends Fragment implements TextWatcher {
             if (i == 0) {
                 pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
                         (int) (MyMap.y[path[i]] * 1E6),
-                        getBm(R.drawable.navi_start),
-                        getBm(R.drawable.navi_start), 0));
+                        getBmhaha(R.drawable.navi_start),
+                        getBmhaha(R.drawable.navi_start), 0));
             } else {
 
-                if (MyMap.angle[i] == -1) {
+                if (MyMap.angle[i+1] == -1) {
                     pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
                             (int) (MyMap.y[path[i]] * 1E6),
                             getBm(R.drawable.left),
                             getBm(R.drawable.left), 0));
-                } else if (MyMap.angle[i] == 1) {
+                } else if (MyMap.angle[i+1] == 1) {
                     pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
                             (int) (MyMap.y[path[i]] * 1E6),
                             getBm(R.drawable.right),
@@ -319,10 +319,10 @@ public class NavitationFragment extends Fragment implements TextWatcher {
             }
             i++;
         }
-        pois.add(new StreetPoiData((int) (MyMap.x[path[i]] * 1E6),
-                (int) (MyMap.y[path[i]] * 1E6),
-                getBm(R.drawable.nava_end),
-                getBm(R.drawable.nava_end), 0));
+        pois.add(new StreetPoiData((int) (ex * 1E6),
+                (int) (ey * 1E6),
+                getBmhaha(R.drawable.nava_end),
+                getBmhaha(R.drawable.nava_end), 0));
 
         overlay = new StreetNavitationOverlay(pois);
         overlay.populate();
@@ -339,6 +339,18 @@ public class NavitationFragment extends Fragment implements TextWatcher {
 
         return BitmapFactory.decodeResource(getResources(), resId, options);
     }
+    private Bitmap getBmhaha(int resId) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Config.ARGB_8888;
+        options.inPurgeable = true;
+        options.inInputShareable = true;
+        options.inScaled = false;
+
+
+
+        return BitmapFactory.decodeResource(getResources(), resId, options);
+    }
+
 
     @Override
     public void onDestroy() {

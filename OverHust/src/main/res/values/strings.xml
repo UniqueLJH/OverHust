@@ -11,5 +11,6 @@
     <string name="border_bottom">Border Bottom</string>
     <string name="image_url">Image Url</string>
     <string name="title_activity_search_image">SearchImageActivity</string>
+    <string name="title_activity_image_details">ImageDetailsActivity</string>
 
 </resources>

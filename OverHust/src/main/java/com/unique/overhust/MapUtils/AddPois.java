@@ -288,10 +288,10 @@ public class AddPois {
         pois.add(new StreetPoiData(30512892, 114416027,
                 getBm(R.drawable.fg_d_8),
                 getBm(R.drawable.fg_d_8), 20));
-        pois.add(new StreetPoiData(30512128, 114434007,
+        pois.add(new StreetPoiData(30513383, 114427180,
                 getBm(R.drawable.fg_d_9),
                 getBm(R.drawable.fg_d_9), 20));
-        pois.add(new StreetPoiData(30513409, 114427152,
+        pois.add(new StreetPoiData(30512276, 114434347,
                 getBm(R.drawable.fg_d_12),
                 getBm(R.drawable.fg_d_12), 20));
     }
