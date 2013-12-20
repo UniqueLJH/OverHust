@@ -16,10 +16,14 @@ import android.widget.ImageView;
 
 import com.unique.overhust.R;
 
-public class SettingActivity extends Activity {
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public class SettingActivity extends SwipeBackActivity {
     private ImageView settingBackView;
 
     private MainActivity mMainActivity;
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,10 @@ public class SettingActivity extends Activity {
                 finish();
             }
         });
+
+        //左侧滑动返回
+        mSwipeBackLayout=getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
     public void findViews() {

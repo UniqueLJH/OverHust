@@ -3,8 +3,10 @@ package com.unique.overhust.MainActivity;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,10 +16,17 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.ImageView;
 
+
 import com.unique.overhust.R;
 
-public class MeActivity extends Activity {
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public class MeActivity extends SwipeBackActivity {
+
+    private static final int VIBRATE_DURATION = 20;
     private ImageView meBackView;
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +46,19 @@ public class MeActivity extends Activity {
                 finish();
             }
         });
+
+        //左侧滑动返回
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
-    public void findViews(){
-        meBackView=(ImageView)findViewById(R.id.meback);
+    public void findViews() {
+        meBackView = (ImageView) findViewById(R.id.meback);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.me, menu);
         return true;
@@ -72,7 +86,7 @@ public class MeActivity extends Activity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_me, container, false);
             return rootView;
         }

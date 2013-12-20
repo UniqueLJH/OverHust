@@ -3,33 +3,40 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
     }
 }
 apply plugin: 'android'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    compile files('/home/fhw/Documents/android-code/OverHustProject/libs/android-support-v4.jar')
+    compile 'com.android.support:support-v4:13.0.+'
+    compile project(':extras:library')
+
     compile files('/home/fhw/Documents/android-code/OverHustProject/OverHust/libs/SosoMapsdk_raster_v1.0.3.jar')
     compile files('/home/fhw/Documents/android-code/OverHustProject/OverHust/libs/locSDK_3.3.jar')
 }
 tasks.withType(Compile) {
     options.encoding = "UTF-8"
 }
-repositories {
-    mavenCentral()
-}
+
+String VERSION_NAME = "v1.0"
+int VERSION_CODE = 1
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion '19.0.0'
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 19
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
     }
-
 }
 
-dependencies {
-}
+
+

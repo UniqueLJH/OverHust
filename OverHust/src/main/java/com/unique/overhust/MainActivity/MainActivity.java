@@ -92,14 +92,15 @@ public class MainActivity extends Activity {
     public void openDrawer(){
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
+            closeDrawer();
         } else {
-            mDrawerLayout.openDrawer(GravityCompat.START);
+            openDrawer();
         }
         return false;
     }
@@ -135,10 +136,9 @@ public class MainActivity extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
+            exit();      //连按两次退出应用
         }
-        return super.onKeyDown(keyCode, event);
+        return false;
     }
 
     public void exit() {
