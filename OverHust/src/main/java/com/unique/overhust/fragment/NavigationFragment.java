@@ -1,7 +1,6 @@
 package com.unique.overhust.fragment;
 
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -91,7 +90,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                              Bundle savedInstanceState) {
 
         streetView = inflater
-                .inflate(R.layout.fragment_navitation, container, false);
+                .inflate(R.layout.fragment_navigation, container, false);
 
 
         mView = (LinearLayout) streetView.findViewById(R.id.streetlayout);
