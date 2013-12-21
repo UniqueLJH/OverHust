@@ -13,7 +13,8 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/image"
@@ -49,7 +50,7 @@
             android:ems="10"
             android:hint="我的位置"
             android:textColorHint="#5462A7"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <EditText
             android:id="@+id/editText1"
@@ -60,7 +61,7 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/end_edittext"
             android:ems="10"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <ImageView
             android:id="@+id/imageView1"

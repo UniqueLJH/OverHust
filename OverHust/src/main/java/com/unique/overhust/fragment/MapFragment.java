@@ -1,17 +1,16 @@
 package com.unique.overhust.fragment;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,10 @@ import com.tencent.street.StreetViewListener;
 import com.tencent.street.StreetViewShow;
 import com.tencent.street.map.basemap.GeoPoint;
 import com.tencent.street.overlay.ItemizedOverlay;
+import com.unique.overhust.CommonUtils.IsNetwork;
 import com.unique.overhust.MainActivity.MainActivity;
-import com.unique.overhust.MapUtils.AddPois;
+import com.unique.overhust.CommonUtils.AddPois;
 import com.unique.overhust.MapUtils.OverHustLocation;
-import com.unique.overhust.MapUtils.StreetNavitationOverlay;
 import com.unique.overhust.MapUtils.StreetOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
@@ -39,7 +38,7 @@ import java.util.ArrayList;
 public class MapFragment extends Fragment implements StreetViewListener {
     private ViewGroup streetView;
 
-    private ImageView streetImageview, mapPreView,footImageView;
+    private ImageView streetImageview, mapPreView, footImageView;
     private ProgressDialog mDialog;
 
     private Handler mHandler, locationHandler;
@@ -55,6 +54,9 @@ public class MapFragment extends Fragment implements StreetViewListener {
 
     private GeoPoint currentCenter;
 
+    //连网检查
+    private IsNetwork mIsNetWork;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +66,12 @@ public class MapFragment extends Fragment implements StreetViewListener {
         findViews();
         showDialog();
 
+        mIsNetWork = new IsNetwork(mContext);
+        mIsNetWork.isNetwork();
+        if(mIsNetWork.getNetworkState()==false){
+            dismissDialog();
+        }
+
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -71,11 +79,9 @@ public class MapFragment extends Fragment implements StreetViewListener {
             }
         };
         mLocation = new OverHustLocation(mContext);
-        Log.e("location", "" + mLocation.getiLatitu());
+
         String key = "4fb2821bde027e675565c75b32245ad5";
         currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
-        //StreetViewShow.getInstance().destory();
-        //streetView.removeAllViewsInLayout();
         StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
 
         return mapView;
@@ -91,6 +97,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mMainActivity.footImageView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -126,18 +133,8 @@ public class MapFragment extends Fragment implements StreetViewListener {
     public ItemizedOverlay getOverlay() {
         if (overlay == null) {
             ArrayList<StreetPoiData> pois = new ArrayList<StreetPoiData>();
-
-//            pois.add(new StreetPoiData(30514333, 114433884,
-//                    getBm(R.drawable.fg_yy_16),
-//                    getBm(R.drawable.fg_yy_16), 0));
-//            pois.add(new StreetPoiData(39984166, 11630800,
-//                    getBm(R.drawable.fg_yy_16),
-//                    getBm(R.drawable.fg_yy_16), 40));
-//            pois.add(new StreetPoiData(30508789, 114430836,
-//                    getBm(R.drawable.fg_yy_16),
-//                    getBm(R.drawable.fg_yy_16), 40));
-            AddPois mAddPois=new AddPois(mContext);
-            pois=mAddPois.getPois();
+            AddPois mAddPois = new AddPois(mContext);
+            pois = mAddPois.getPois();
             overlay = new StreetOverlay(pois);
             overlay.populate();
         }
@@ -168,7 +165,6 @@ public class MapFragment extends Fragment implements StreetViewListener {
     @Override
     public void onNetError() {
         Log.e("neterror", "onNetError");
-        //streetImageview.setImageResource(R.drawable.ic_overhust);
         dismissDialog();
         mapPreView.setVisibility(View.VISIBLE);
     }
@@ -201,19 +197,34 @@ public class MapFragment extends Fragment implements StreetViewListener {
     }
 
     //加载progressDialog
-    public Dialog showDialog() {
+    public ProgressDialog showDialog() {
         mDialog = new ProgressDialog(mContext);
         mDialog.setTitle("OverHust");
         mDialog.setMessage("正在加载街景...");
         mDialog.setIndeterminate(true);
-        mDialog.setCancelable(true);
+        mDialog.setCancelable(false);
         mDialog.show();
+        mDialog.setOnKeyListener(onKeyListener);
 
         return mDialog;
     }
+
+    /**
+     * add a keylistener for progress dialog
+     */
+    private DialogInterface.OnKeyListener onKeyListener = new DialogInterface.OnKeyListener() {
+        @Override
+        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+                dismissDialog();
+            }
+            return false;
+        }
+    };
 
     //销毁progressDialog
     public void dismissDialog() {
         mDialog.dismiss();
     }
+
 }

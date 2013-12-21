@@ -18,7 +18,6 @@ public class PhotoWallFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         photoView = inflater.inflate(R.layout.fragment_photowall, null);
-        Log.e("photo","ok");
         return photoView;
     }
 }

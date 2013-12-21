@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
 
 public class StartActivity extends Activity {
 
     private ImageView startView;
+
+    private OverHustLocation mOverHustLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,7 @@ public class StartActivity extends Activity {
                 finish();
             }
         });
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())

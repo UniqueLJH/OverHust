@@ -20,6 +20,10 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 public class SettingActivity extends SwipeBackActivity {
+
+    //控制滑动返回的边缘大小
+    private static final int EDGE_SIZE=100;
+
     private ImageView settingBackView;
 
     private MainActivity mMainActivity;
@@ -45,6 +49,7 @@ public class SettingActivity extends SwipeBackActivity {
         //左侧滑动返回
         mSwipeBackLayout=getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        mSwipeBackLayout.setEdgeSize(EDGE_SIZE);
     }
 
     public void findViews() {

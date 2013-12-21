@@ -4,15 +4,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,16 +20,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.unique.overhust.CommonUtils.IsNetwork;
 import com.unique.overhust.MainActivity.MainActivity;
-import com.unique.overhust.MapUtils.SearchCheeses;
+import com.unique.overhust.CommonUtils.SearchCheeses;
 import com.unique.overhust.R;
 
 import org.xmlpull.v1.XmlPullParser;
-
-import java.util.jar.Attributes;
 
 /**
  * Created by fhw on 11/17/13.
@@ -59,6 +54,8 @@ public class SearchFragment extends Fragment implements TextWatcher {
     private AttributeSet attributes;
     private String[] urls = null;
 
+    private IsNetwork mIsNetwork;
+
     public static int KEY;
 
     @Override
@@ -66,6 +63,9 @@ public class SearchFragment extends Fragment implements TextWatcher {
         searchView = inflater.inflate(R.layout.fragment_search, null);
         mMainActivity = (MainActivity) getActivity();
         mContext = mMainActivity;
+
+        mIsNetwork=new IsNetwork(mContext);
+        mIsNetwork.isNetwork();
 
         findViews();
         mInputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);

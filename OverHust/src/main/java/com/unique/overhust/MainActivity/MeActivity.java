@@ -25,6 +25,8 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 public class MeActivity extends SwipeBackActivity {
 
     private static final int VIBRATE_DURATION = 20;
+    //控制滑动返回的边缘大小
+    private static final int EDGE_SIZE=100;
     private ImageView meBackView;
     private SwipeBackLayout mSwipeBackLayout;
 
@@ -50,6 +52,7 @@ public class MeActivity extends SwipeBackActivity {
         //左侧滑动返回
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        mSwipeBackLayout.setEdgeSize(EDGE_SIZE);
     }
 
     public void findViews() {

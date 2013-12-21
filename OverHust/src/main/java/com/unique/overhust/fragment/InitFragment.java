@@ -26,7 +26,6 @@ public class InitFragment extends Fragment {
         initView = inflater.inflate(R.layout.fragment_init, null);
         mMainActivity.openDrawer();
         return initView;
-
     }
 
 }

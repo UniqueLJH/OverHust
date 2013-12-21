@@ -48,8 +48,6 @@ public class MainActivity extends Activity {
         initFirstInto();
         mDrawerLayout.openDrawer(GravityCompat.START);
 
-        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
         /*if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())

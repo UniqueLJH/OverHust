@@ -15,9 +15,9 @@ repositories {
 dependencies {
     compile 'com.android.support:support-v4:13.0.+'
     compile project(':extras:library')
-
-    compile files('/home/fhw/Documents/android-code/OverHustProject/OverHust/libs/SosoMapsdk_raster_v1.0.3.jar')
-    compile files('/home/fhw/Documents/android-code/OverHustProject/OverHust/libs/locSDK_3.3.jar')
+    compile files('libs/SosoMapsdk_raster_v1.0.3.jar')
+    compile files('libs/locSDK_3.3.jar')
+    compile files('libs/umeng_sdk.jar')
 }
 tasks.withType(Compile) {
     options.encoding = "UTF-8"

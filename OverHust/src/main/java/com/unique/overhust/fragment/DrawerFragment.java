@@ -31,14 +31,18 @@ public class DrawerFragment extends Fragment {
         findViews();
 
         //按钮监听
+        setOnClick();
+
+        return drawerView;
+    }
+
+    public void setOnClick(){
         map.setOnClickListener(new MyOnClickListener());
         navigation.setOnClickListener(new MyOnClickListener());
         search.setOnClickListener(new MyOnClickListener());
         schoolbus.setOnClickListener(new MyOnClickListener());
         me.setOnClickListener(new MyOnClickListener());
         setting.setOnClickListener(new MyOnClickListener());
-
-        return drawerView;
     }
 
     public void findViews() {
@@ -69,9 +73,9 @@ public class DrawerFragment extends Fragment {
                     schoolbus.setImageResource(R.drawable.ic_schoolbus);
                     break;
                 case R.id.navigation:
-                    NavitationFragment mNavitationFragment = new NavitationFragment();
+                    NavigationFragment mNavigationFragment = new NavigationFragment();
                     FragmentTransaction navigationTransaction = fragmentManager.beginTransaction();
-                    navigationTransaction.replace(R.id.content_frame, mNavitationFragment);
+                    navigationTransaction.replace(R.id.content_frame, mNavigationFragment);
                     navigationTransaction.commit();
                     mMainActivity.closeDrawer();
                     map.setImageResource(R.drawable.ic_map);

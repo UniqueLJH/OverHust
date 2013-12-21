@@ -1,7 +1,5 @@
 package com.unique.overhust.MainActivity;
 
-import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,16 +9,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
-import com.unique.overhust.MapUtils.ZoomImageView;
+import com.unique.overhust.CommonUtils.ZoomImageView;
 import com.unique.overhust.R;
 
-public class ImageDetailsActivity extends Activity {
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public class ImageDetailsActivity extends SwipeBackActivity {
+
+    //控制滑动返回的边缘大小
+    private static final int EDGE_SIZE = 100;
+
     /**
      * 自定义的ImageView控制，可对图片进行多点触控缩放和拖动
      */
     private ZoomImageView zoomImageView;
+
+    private SwipeBackLayout mSwipeBackLayout;
 
     /**
      * 待展示的图片
@@ -37,6 +43,11 @@ public class ImageDetailsActivity extends Activity {
         String imagePath = getIntent().getStringExtra("image_path");
         bitmap = BitmapFactory.decodeFile(imagePath);
         zoomImageView.setImageBitmap(bitmap);
+
+        //左侧滑动返回
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        mSwipeBackLayout.setEdgeSize(EDGE_SIZE);
 
 //        if (savedInstanceState == null) {
 //            getFragmentManager().beginTransaction()
@@ -85,7 +96,7 @@ public class ImageDetailsActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // 记得将Bitmap对象回收掉
+        // 将Bitmap对象回收掉
         if (bitmap != null) {
             bitmap.recycle();
         }
