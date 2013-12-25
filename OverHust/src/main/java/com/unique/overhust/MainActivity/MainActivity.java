@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,10 +23,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.aphidmobile.flip.FlipViewController;
+import com.unique.overhust.FirstInto.GuideAdapter;
+import com.unique.overhust.FirstInto.Guides;
 import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
 import com.unique.overhust.fragment.DrawerFragment;
 import com.unique.overhust.fragment.InitFragment;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends Activity {
@@ -41,20 +48,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
-
         findViews();
         initDrawer();
         initFirstInto();
         mDrawerLayout.openDrawer(GravityCompat.START);
-
-        /*if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }*/
         mOverHustLocation = new OverHustLocation(this);
         mOverHustLocation.getLocation();
+
+
     }
 
     public void initFirstInto() {
@@ -69,7 +72,7 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerFrameLyout = (FrameLayout) findViewById(R.id.drawer_frame);
         contentFrameLyout = (FrameLayout) findViewById(R.id.content_frame);
-        footImageView=(ImageView)findViewById(R.id.foot);
+        footImageView = (ImageView) findViewById(R.id.foot);
     }
 
     //添加左侧的fragment
@@ -87,7 +90,7 @@ public class MainActivity extends Activity {
     }
 
     //打开左侧抽屉
-    public void openDrawer(){
+    public void openDrawer() {
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
 

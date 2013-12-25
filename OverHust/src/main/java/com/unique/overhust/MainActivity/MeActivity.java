@@ -26,7 +26,7 @@ public class MeActivity extends SwipeBackActivity {
 
     private static final int VIBRATE_DURATION = 20;
     //控制滑动返回的边缘大小
-    private static final int EDGE_SIZE=100;
+    private static final int EDGE_SIZE = 100;
     private ImageView meBackView;
     private SwipeBackLayout mSwipeBackLayout;
 

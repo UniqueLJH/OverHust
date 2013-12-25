@@ -64,7 +64,7 @@ public class SearchFragment extends Fragment implements TextWatcher {
         mMainActivity = (MainActivity) getActivity();
         mContext = mMainActivity;
 
-        mIsNetwork=new IsNetwork(mContext);
+        mIsNetwork = new IsNetwork(mContext);
         mIsNetwork.isNetwork();
 
         findViews();
@@ -94,7 +94,7 @@ public class SearchFragment extends Fragment implements TextWatcher {
                         KEY = 1;
                     } else if (mEditText.getText().toString().contains("操场 ")) {
                         KEY = 5;
-                    }else{
+                    } else {
                         Toast.makeText(mContext, "此类别目前没有图片", Toast.LENGTH_SHORT).show();
                         return;
                     }

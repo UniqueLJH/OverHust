@@ -22,7 +22,7 @@ public class InitFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mMainActivity=(MainActivity)getActivity();
+        mMainActivity = (MainActivity) getActivity();
         initView = inflater.inflate(R.layout.fragment_init, null);
         mMainActivity.openDrawer();
         return initView;

@@ -6,7 +6,7 @@ import android.util.LruCache;
 
 /**
  * 对图片进行管理的工具类
- *
+ * <p/>
  * Created by fhw on 12/4/13.
  */
 public class ImageLoader {
@@ -49,10 +49,8 @@ public class ImageLoader {
     /**
      * 将一张图片存储到LruCache中。
      *
-     * @param key
-     *            LruCache的键，这里传入图片的URL地址。
-     * @param bitmap
-     *            LruCache的键，这里传入从网络上下载的Bitmap对象。
+     * @param key    LruCache的键，这里传入图片的URL地址。
+     * @param bitmap LruCache的键，这里传入从网络上下载的Bitmap对象。
      */
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
         if (getBitmapFromMemoryCache(key) == null) {
@@ -63,8 +61,7 @@ public class ImageLoader {
     /**
      * 从LruCache中获取一张图片，如果不存在就返回null。
      *
-     * @param key
-     *            LruCache的键，这里传入图片的URL地址。
+     * @param key LruCache的键，这里传入图片的URL地址。
      * @return 对应传入键的Bitmap对象，或者null。
      */
     public Bitmap getBitmapFromMemoryCache(String key) {

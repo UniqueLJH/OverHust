@@ -36,7 +36,7 @@ public class DrawerFragment extends Fragment {
         return drawerView;
     }
 
-    public void setOnClick(){
+    public void setOnClick() {
         map.setOnClickListener(new MyOnClickListener());
         navigation.setOnClickListener(new MyOnClickListener());
         search.setOnClickListener(new MyOnClickListener());

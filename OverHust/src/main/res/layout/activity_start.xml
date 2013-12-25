@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/start_selector"
-        android:id="@+id/start"/>
+        android:id="@+id/start" />
 
 </FrameLayout>

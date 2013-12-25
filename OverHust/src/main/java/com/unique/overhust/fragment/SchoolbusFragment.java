@@ -11,11 +11,12 @@ import com.unique.overhust.R;
 /**
  * Created by fhw on 11/17/13.
  */
-public class SchoolbusFragment extends Fragment{
+public class SchoolbusFragment extends Fragment {
     private View schoolbusView;
+
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
-        schoolbusView=inflater.inflate(R.layout.fragment_schoolbus,null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        schoolbusView = inflater.inflate(R.layout.fragment_schoolbus, null);
         return schoolbusView;
     }
 }

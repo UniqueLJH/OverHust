@@ -72,7 +72,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-v4-13.0.0" level="project" />
     <orderEntry type="library" exported="" name="SosoMapsdk_raster_v1.0.3" level="project" />
-    <orderEntry type="module" module-name="library" exported="" />
+    <orderEntry type="library" exported="" name="aphid-flipview-library" level="project" />
+    <orderEntry type="module" module-name="SwipeBackLibrary" exported="" />
     <orderEntry type="library" exported="" name="umeng_sdk" level="project" />
     <orderEntry type="library" exported="" name="locSDK_3.3" level="project" />
   </component>

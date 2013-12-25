@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:hint="输入查找类别"
             android:textColorHint="#5462A7"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <ListView
             android:layout_width="match_parent"

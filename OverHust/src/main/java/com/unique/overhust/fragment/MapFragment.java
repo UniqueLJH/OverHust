@@ -68,8 +68,9 @@ public class MapFragment extends Fragment implements StreetViewListener {
 
         mIsNetWork = new IsNetwork(mContext);
         mIsNetWork.isNetwork();
-        if(mIsNetWork.getNetworkState()==false){
+        if (mIsNetWork.getNetworkState() == false) {
             dismissDialog();
+            mMainActivity.openDrawer();
         }
 
         mHandler = new Handler() {

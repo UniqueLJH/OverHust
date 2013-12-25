@@ -25,7 +25,7 @@ public class IsNetwork {
     private AlertDialog mAlertDialog;
 
     //网络状况标记
-    private boolean isNetwork=true;
+    private boolean isNetwork = true;
 
     public IsNetwork(Context context) {
         mContext = context;
@@ -38,16 +38,16 @@ public class IsNetwork {
         if (mNetworkInfo != null) {
             if (mNetworkInfo.isAvailable() == false) {
                 showDialog();
-                isNetwork=false;
+                isNetwork = false;
             }
         } else {
             showDialog();
-            isNetwork=false;
+            isNetwork = false;
         }
     }
 
     //传递网络状况
-    public boolean getNetworkState(){
+    public boolean getNetworkState() {
         return isNetwork;
     }
 

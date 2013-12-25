@@ -14,10 +14,12 @@ repositories {
 
 dependencies {
     compile 'com.android.support:support-v4:13.0.+'
-    compile project(':extras:library')
+    compile project(':extras:SwipeBackLibrary')
+
     compile files('libs/SosoMapsdk_raster_v1.0.3.jar')
     compile files('libs/locSDK_3.3.jar')
     compile files('libs/umeng_sdk.jar')
+    compile files('libs/aphid-flipview-library.jar')
 }
 tasks.withType(Compile) {
     options.encoding = "UTF-8"

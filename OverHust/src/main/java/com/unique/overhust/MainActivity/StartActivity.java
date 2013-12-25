@@ -3,6 +3,7 @@ package com.unique.overhust.MainActivity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,8 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.aphidmobile.flip.FlipViewController;
+import com.unique.overhust.FirstInto.GuideAdapter;
 import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StartActivity extends Activity {
 
@@ -20,9 +26,46 @@ public class StartActivity extends Activity {
 
     private OverHustLocation mOverHustLocation;
 
+    private boolean isFirstIn;
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences = getSharedPreferences("OverHust", MODE_PRIVATE);
+        isFirstIn = preferences.getBoolean("isFirstIn", true);
+
+        if (!isFirstIn) {
+            noFirstUse();
+        } else {
+            FlipViewController flipView = new FlipViewController(this, FlipViewController.HORIZONTAL);
+            flipView.setAdapter(new GuideAdapter(this));
+            setContentView(flipView);
+            flipView.setOnViewFlipListener(new FlipViewController.ViewFlipListener() {
+                @Override
+                public void onViewFlipped(View view, int i) {
+                    if (i == 3) {
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        noFirstUse();
+                                    }
+                                });
+                            }
+                        }, 500);
+                    }
+                }
+            });
+            updateIsFirstIn();
+        }
+    }
+
+    public void noFirstUse() {
         setContentView(R.layout.activity_start);
         startView = (ImageView) findViewById(R.id.start);
         startView.setOnClickListener(new View.OnClickListener() {
@@ -33,14 +76,7 @@ public class StartActivity extends Activity {
                 finish();
             }
         });
-
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,6 +96,12 @@ public class StartActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateIsFirstIn() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isFirstIn", false);
+        editor.commit();
     }
 
     /**
