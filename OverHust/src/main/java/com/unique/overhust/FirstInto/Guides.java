@@ -12,22 +12,19 @@ public class Guides {
     public static final List<Data> IMG_DESCRIPTIONS = new ArrayList<Data>();
 
     static {
-        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.ic_overhust, true));
-        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.ic_launcher, true));
-        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.fg_d_9, true));
-        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.fg_xq_3, false));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_main));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_map));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_navigation));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_search));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.ic_overhust));
 
     }
 
     public static final class Data {
         public final int imageId;
-        //        public final int position;
-        public final boolean isFinish;
 
-        private Data(int imageId, boolean isfinish) {
+        private Data(int imageId) {
             this.imageId = imageId;
-//            this.position = position;
-            this.isFinish = isfinish;
         }
     }
 }

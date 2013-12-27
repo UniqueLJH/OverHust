@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.devspark.appmsg.AppMsg;
 import com.unique.overhust.CommonUtils.IsNetwork;
 import com.unique.overhust.MainActivity.MainActivity;
 import com.unique.overhust.CommonUtils.SearchCheeses;
@@ -69,6 +71,8 @@ public class SearchFragment extends Fragment implements TextWatcher {
 
         findViews();
         mInputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mInputMethodManager.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN,
+                InputMethodManager.HIDE_NOT_ALWAYS);
 
         mAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_expandable_list_item_1, mStrings);
         mListView.setAdapter(mAdapter);
@@ -80,7 +84,10 @@ public class SearchFragment extends Fragment implements TextWatcher {
             @Override
             public void onClick(View v) {
                 if (mEditText.getText().toString().equals("")) {
-                    Toast.makeText(mContext, "请输入查找类别", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "请输入查找类别", Toast.LENGTH_SHORT).show();
+                    AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入查找类别", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+                    appMsg.setLayoutGravity(Gravity.TOP);
+                    appMsg.show();
                 } else {
                     if (mEditText.getText().toString().contains("食堂")) {
                         KEY = 1;
@@ -95,7 +102,10 @@ public class SearchFragment extends Fragment implements TextWatcher {
                     } else if (mEditText.getText().toString().contains("操场 ")) {
                         KEY = 5;
                     } else {
-                        Toast.makeText(mContext, "此类别目前没有图片", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "此类别目前没有图片", Toast.LENGTH_SHORT).show();
+                        AppMsg appMsg = AppMsg.makeText(mMainActivity, "此类别目前没有图片", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+                        appMsg.setLayoutGravity(Gravity.TOP);
+                        appMsg.show();
                         return;
                     }
                     mRelativeLayout.setVisibility(View.INVISIBLE);

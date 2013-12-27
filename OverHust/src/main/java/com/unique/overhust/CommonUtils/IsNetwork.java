@@ -53,7 +53,7 @@ public class IsNetwork {
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setMessage("                 哎呀，未联网~");
+        builder.setMessage("                 网络连接错误");
         builder.setPositiveButton("知道了!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

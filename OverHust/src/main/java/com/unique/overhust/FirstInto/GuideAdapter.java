@@ -1,6 +1,10 @@
 package com.unique.overhust.FirstInto;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +25,26 @@ public class GuideAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<Guides.Data> guidelData;
 
-    private View layout;
+    private int repeatCount = 1;
+    private Context mContext;
 
     public GuideAdapter(Context context) {
         inflater = LayoutInflater.from(context);
         guidelData = new ArrayList<Guides.Data>(Guides.IMG_DESCRIPTIONS);
+        this.mContext=context;
     }
 
     @Override
     public int getCount() {
-        return guidelData.size();
+        return guidelData.size() * repeatCount;
+    }
+
+    public int getRepeatCount() {
+        return repeatCount;
+    }
+
+    public void setRepeatCount(int repeatCount) {
+        this.repeatCount = repeatCount;
     }
 
     @Override
@@ -45,13 +59,15 @@ public class GuideAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        layout = convertView;
+        View layout = convertView;
         if (convertView == null) {
             layout = inflater.inflate(R.layout.guidesimple, null);
         }
+
         final Guides.Data data = guidelData.get(position % guidelData.size());
 
-        UI.<ImageView>findViewById(layout, R.id.guidephoto).setImageResource(data.imageId);
+        UI.<ImageView>findViewById(layout, R.id.guidephoto).setBackgroundResource(data.imageId);
+
         return layout;
     }
 

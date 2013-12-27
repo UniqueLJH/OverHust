@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -30,7 +31,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.devspark.appmsg.AppMsg;
 import com.unique.overhust.MainActivity.ImageDetailsActivity;
+import com.unique.overhust.MainActivity.MainActivity;
 import com.unique.overhust.R;
 import com.unique.overhust.fragment.SearchFragment;
 
@@ -118,6 +121,8 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
      */
     private List<ImageView> imageViewList = new ArrayList<ImageView>();
 
+    private MainActivity mMainActivity;
+
     private String[] imageUrls;
     /**
      * 在Handler中进行图片可见性检查的判断，以及加载更多图片的操作。
@@ -156,6 +161,7 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
      */
     public ImageScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mMainActivity = (MainActivity) context;
         imageLoader = ImageLoader.getInstance();
         taskCollection = new HashSet<LoadImageTask>();
         setOnTouchListener(this);
@@ -217,8 +223,13 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
             int startIndex = page * PAGE_SIZE;
             int endIndex = page * PAGE_SIZE + PAGE_SIZE;
             if (startIndex < imageUrls.length) {
-                Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT)
-                        .show();
+
+                //Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT)
+                //        .show();
+                AppMsg appMsg = AppMsg.makeText(mMainActivity, "正在加载...", new AppMsg.Style(800, R.color.overhust));
+                appMsg.setLayoutGravity(Gravity.BOTTOM);
+                appMsg.show();
+
                 if (endIndex > imageUrls.length) {
                     endIndex = imageUrls.length;
                 }
@@ -229,11 +240,17 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
                 }
                 page++;
             } else {
-                Toast.makeText(getContext(), "已没有更多图片", Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(getContext(), "已没有更多图片", Toast.LENGTH_SHORT)
+//                        .show();
+                AppMsg appMsg = AppMsg.makeText(mMainActivity, "已没有更多图片", new AppMsg.Style(500, R.color.overhust));
+                appMsg.setLayoutGravity(Gravity.BOTTOM);
+                appMsg.show();
             }
         } else {
-            Toast.makeText(getContext(), "未发现SD卡", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "未发现SD卡", Toast.LENGTH_SHORT).show();
+            AppMsg appMsg = AppMsg.makeText(mMainActivity, "未发现SD卡", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+            appMsg.setLayoutGravity(Gravity.TOP);
+            appMsg.show();
         }
     }
 

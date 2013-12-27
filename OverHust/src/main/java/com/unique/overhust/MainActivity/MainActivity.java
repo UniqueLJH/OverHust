@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aphidmobile.flip.FlipViewController;
+import com.devspark.appmsg.AppMsg;
 import com.unique.overhust.FirstInto.GuideAdapter;
 import com.unique.overhust.FirstInto.Guides;
 import com.unique.overhust.MapUtils.OverHustLocation;
@@ -144,8 +146,11 @@ public class MainActivity extends Activity {
 
     public void exit() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
-            Toast.makeText(getApplicationContext(), "再按一次退出程序",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+//                    Toast.LENGTH_SHORT).show();
+            AppMsg appMsg = AppMsg.makeText(this, "再次按返回键退出应用", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust));
+            appMsg.setLayoutGravity(Gravity.BOTTOM);
+            appMsg.show();
             exitTime = System.currentTimeMillis();
         } else {
             finish();

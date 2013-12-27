@@ -13,6 +13,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.devspark.appmsg.AppMsg;
 import com.tencent.street.StreetViewListener;
 import com.tencent.street.StreetViewShow;
 import com.tencent.street.a;
@@ -106,7 +108,11 @@ public class NavigationFragment extends Fragment implements TextWatcher {
         mImageView = (ImageView) streetView.findViewById(R.id.imageView1);
         mTextView = (TextView) streetView.findViewById(R.id.textView1);
         mContext = getActivity();
+
         imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN,
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
         mAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, mStrings);
         mHandler = new Handler() {
@@ -174,8 +180,10 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                         @Override
                         public void run() {
                             // TODO Auto-generated method stub
-                            Toast.makeText(mContext, "请输入目的地", Toast.LENGTH_SHORT).show();
-
+                            //Toast.makeText(mContext, "请输入目的地", Toast.LENGTH_SHORT).show();
+                            AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入目的地", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+                            appMsg.setLayoutGravity(Gravity.TOP);
+                            appMsg.show();
                             return;
                         }
                     });

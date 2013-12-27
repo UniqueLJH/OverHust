@@ -2,6 +2,7 @@ package com.unique.overhust.MainActivity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,9 @@ public class StartActivity extends Activity {
 
     private boolean isFirstIn;
     private SharedPreferences preferences;
+    private FlipViewController flipView;
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,32 +39,35 @@ public class StartActivity extends Activity {
 
         preferences = getSharedPreferences("OverHust", MODE_PRIVATE);
         isFirstIn = preferences.getBoolean("isFirstIn", true);
+        mContext = this;
 
         if (!isFirstIn) {
             noFirstUse();
         } else {
-            FlipViewController flipView = new FlipViewController(this, FlipViewController.HORIZONTAL);
+            flipView = new FlipViewController(this, FlipViewController.HORIZONTAL);
             flipView.setAdapter(new GuideAdapter(this));
             setContentView(flipView);
             flipView.setOnViewFlipListener(new FlipViewController.ViewFlipListener() {
                 @Override
                 public void onViewFlipped(View view, int i) {
-                    if (i == 3) {
-                        Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
+                    ImageView mImageView = (ImageView) findViewById(R.id.guide_start);
+                    if (i == 4) {
+                        mImageView.setVisibility(View.VISIBLE);
+                        mImageView.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void run() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        noFirstUse();
-                                    }
-                                });
+                            public void onClick(View v) {
+                                Intent startIntent = new Intent(StartActivity.this, MainActivity.class);
+                                startActivity(startIntent);
+                                finish();
                             }
-                        }, 500);
+                        });
+                    } else {
+                        mImageView.setVisibility(View.GONE);
                     }
                 }
             });
+
+            //第一次使用标记值更改
             updateIsFirstIn();
         }
     }
