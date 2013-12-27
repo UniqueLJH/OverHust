@@ -8,9 +8,9 @@
                 qualifiers="" >
                 <color name="info" >#669900
                 </color>
-                <color name="alert" >#e54141
-                </color>
                 <color name="confirm" >#FF8800
+                </color>
+                <color name="alert" >#e54141
                 </color>
                 <color name="overhust" >#7bdb79
                 </color>

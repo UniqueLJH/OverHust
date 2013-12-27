@@ -1,17 +1,12 @@
 package com.unique.overhust.MainActivity;
 
-import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.ImageView;
 
 import com.unique.overhust.R;
@@ -25,6 +20,7 @@ public class SettingActivity extends SwipeBackActivity {
     private static final int EDGE_SIZE = 100;
 
     private ImageView settingBackView;
+    private ImageView feedbackView;
 
     private MainActivity mMainActivity;
     private SwipeBackLayout mSwipeBackLayout;
@@ -34,6 +30,7 @@ public class SettingActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         findViews();
+        viewOnClick();
 //        if (savedInstanceState == null) {
 //            getFragmentManager().beginTransaction()
 //                    .add(R.id.container, new PlaceholderFragment())
@@ -54,6 +51,16 @@ public class SettingActivity extends SwipeBackActivity {
 
     public void findViews() {
         settingBackView = (ImageView) findViewById(R.id.settingback);
+        feedbackView = (ImageView) findViewById(R.id.feedback);
+    }
+
+    public void viewOnClick() {
+        feedbackView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

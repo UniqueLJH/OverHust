@@ -39,7 +39,7 @@ public class AppMsg {
      *
      * @see #setDuration
      */
-    public static final int LENGTH_SHORT = 1300;
+    public static final int LENGTH_SHORT = 1500;
 
     /**
      * Show the view or text notification for a long period of time. This time

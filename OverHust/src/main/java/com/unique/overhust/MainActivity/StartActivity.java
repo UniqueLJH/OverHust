@@ -51,7 +51,7 @@ public class StartActivity extends Activity {
                 @Override
                 public void onViewFlipped(View view, int i) {
                     ImageView mImageView = (ImageView) findViewById(R.id.guide_start);
-                    if (i == 4) {
+                    if (i == 6) {
                         mImageView.setVisibility(View.VISIBLE);
                         mImageView.setOnClickListener(new View.OnClickListener() {
                             @Override

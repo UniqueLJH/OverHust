@@ -16,6 +16,8 @@ public class Guides {
         Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_map));
         Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_navigation));
         Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_search));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_drawerlayout));
+        Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.guide_swipelayout));
         Guides.IMG_DESCRIPTIONS.add(new Data(R.drawable.ic_overhust));
 
     }
