@@ -6,6 +6,8 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alert_dialog_feedback_textview_first"
@@ -24,6 +26,8 @@
         android:textStyle="italic" />
 
     <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alert_dialog_feedback_textview_two"

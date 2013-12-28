@@ -134,11 +134,11 @@ public class MapFragment extends Fragment implements StreetViewListener {
     public ItemizedOverlay getOverlay() {
         if (overlay == null) {
             ArrayList<StreetPoiData> pois = new ArrayList<StreetPoiData>();
-            //long a = System.currentTimeMillis();
+            long a = System.currentTimeMillis();
             AddPois mAddPois = new AddPois(mContext);
             pois = mAddPois.getPois();
-            //long b = System.currentTimeMillis()-a;
-            //System.out.println("tim111"+b);
+            long b = System.currentTimeMillis()-a;
+            System.out.println("tim111"+b);
             overlay = new StreetOverlay(pois);
             overlay.populate();
         }
