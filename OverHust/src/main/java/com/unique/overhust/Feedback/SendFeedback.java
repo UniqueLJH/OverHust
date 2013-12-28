@@ -8,38 +8,45 @@ import android.util.Log;
  */
 public class SendFeedback {
     private String feedbackBody;
-    private String feedbackFrom;
+    private String feedbackContact;
 
-    public SendFeedback(String fdBody, String fdFrom) {
+    public SendFeedback(String fdBody, String fdContact) {
         this.feedbackBody = fdBody;
-        this.feedbackFrom = fdFrom;
-        new SendEmailTask(feedbackBody, feedbackFrom);
+        this.feedbackContact = fdContact;
+        new SendEmailTask(feedbackBody, feedbackContact).execute();
+//        try {
+//            GmailSender sender = new GmailSender("overhustdsnc@gmail.com", "overhust");
+//            sender.sendMail(subject, feedbackBody, feedbackFrom, recipients);
+//            Log.e("sendmail", "ok");
+//        } catch (Exception e) {
+//            Log.e("SendMail", e.getMessage(), e);
+//        }
     }
 
     class SendEmailTask extends AsyncTask<Void, Void, Void> {
         private final String subject = "用户反馈";
-        private final String recipients = "fanhongweiqq@gmail.com";
+        private final String recipients = "overhustdsnc@gmail.com";
         private String mFeedbackBody;
-        private String mFeedbackFrom;
+        private String mFeedbackContact;
 
-        public SendEmailTask(String feedbackBody, String feedbackFrom) {
+        public SendEmailTask(String feedbackBody, String feedbackContact) {
             this.mFeedbackBody = feedbackBody;
-            this.mFeedbackFrom = feedbackFrom;
+            this.mFeedbackContact = feedbackContact;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
                 GmailSender sender = new GmailSender("overhustdsnc@gmail.com", "overhust");
-                sender.sendMail(subject, mFeedbackBody, mFeedbackFrom, recipients);
-            }catch (Exception e){
+                sender.sendMail(subject, "反馈内容\n" + mFeedbackBody +"\n"+ "联系方式\n" + mFeedbackContact, recipients, recipients);
+            } catch (Exception e) {
                 Log.e("SendMail", e.getMessage(), e);
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result){
+        protected void onPostExecute(Void result) {
 
         }
     }

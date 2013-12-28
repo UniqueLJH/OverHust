@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.os.Build;
 import android.widget.ImageView;
 
 
+import com.devspark.appmsg.AppMsg;
 import com.unique.overhust.R;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -93,6 +95,14 @@ public class MeActivity extends SwipeBackActivity {
             View rootView = inflater.inflate(R.layout.fragment_me, container, false);
             return rootView;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        AppMsg appMsg = AppMsg.makeText(this, "左滑返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust));
+        appMsg.setLayoutGravity(Gravity.BOTTOM);
+        appMsg.show();
+        return false;
     }
 
 //    @Override

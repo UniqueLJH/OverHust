@@ -1,15 +1,26 @@
 package com.unique.overhust.MainActivity;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.devspark.appmsg.AppMsg;
+import com.unique.overhust.Feedback.SendFeedback;
 import com.unique.overhust.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
@@ -58,29 +69,68 @@ public class SettingActivity extends SwipeBackActivity {
         feedbackView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showFeedbackAlert();
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void showFeedbackAlert() {
+        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+        final View feedbackView = factory.inflate(R.layout.alert_dialog_feedback, null);
+        new AlertDialog.Builder(SettingActivity.this)
+                .setTitle(R.string.alert_dialog_feedback)
+                .setView(feedbackView)
+                .setCancelable(false)
+                .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        commitFeedback(feedbackView);
+                    }
+                })
+                .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.setting, menu);
-        return true;
+                    }
+                })
+                .create().show();
+    }
+
+    public void commitFeedback(View feedbackView) {
+        EditText feedbackEditText = (EditText) feedbackView.findViewById(R.id.feedback);
+        EditText contactEditText = (EditText) feedbackView.findViewById(R.id.contact);
+        String feedbackBody = feedbackEditText.getText().toString();
+        String feedbackContact = contactEditText.getText().toString();
+        if (feedbackBody.equals("")) {
+            AppMsg appMsg = AppMsg.makeText(this, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+            appMsg.setLayoutGravity(Gravity.TOP);
+            appMsg.show();
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showFeedbackAlert();
+                        }
+                    });
+                }
+            }, 500);
+        } else {
+            SendFeedback mSendFeedback = new SendFeedback(feedbackBody, feedbackContact);
+            AppMsg appMsg = AppMsg.makeText(this, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust));
+            appMsg.setLayoutGravity(Gravity.TOP);
+            appMsg.show();
+        }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        AppMsg appMsg = AppMsg.makeText(this, "左滑返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust));
+        appMsg.setLayoutGravity(Gravity.BOTTOM);
+        appMsg.show();
+        return false;
     }
 
     /**
@@ -98,6 +148,7 @@ public class SettingActivity extends SwipeBackActivity {
             return rootView;
         }
     }
+
 
 //    @Override
 //    public boolean onKeyDown(int keyCode,KeyEvent event){

@@ -1,5 +1,7 @@
 package com.unique.overhust.Feedback;
 
+import android.util.Log;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Authenticator;
@@ -64,8 +66,9 @@ public class GmailSender extends Authenticator {
             else
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
             Transport.send(message);
+            Log.e("gmailsender","ok");
         } catch (Exception e) {
-
+            Log.e("ecption",""+e);
         }
     }
 
