@@ -147,11 +147,17 @@ public class OverHustLocation {
     //获得经度值
     public double getiLongti() {
         //Log.e("get", "" + iLongti);
+        if(iLongti==0.0){
+            this.getLocation();
+        }
         return iLongti;
     }
 
     //获得维度值
     public double getiLatitu() {
+        if(iLatitu==0.0){
+            this.getLocation();
+        }
         return iLatitu;
     }
 

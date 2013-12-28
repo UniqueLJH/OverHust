@@ -38,7 +38,7 @@ public class SendFeedback {
         protected Void doInBackground(Void... params) {
             try {
                 GmailSender sender = new GmailSender("overhustdsnc@gmail.com", "overhust");
-                sender.sendMail(subject, "反馈内容\n" + mFeedbackBody +"\n"+ "联系方式\n" + mFeedbackContact, recipients, recipients);
+                sender.sendMail(subject, "反馈内容\n" + mFeedbackBody +"\n\n\n"+ "联系方式\n" + mFeedbackContact, recipients, recipients);
             } catch (Exception e) {
                 Log.e("SendMail", e.getMessage(), e);
             }
