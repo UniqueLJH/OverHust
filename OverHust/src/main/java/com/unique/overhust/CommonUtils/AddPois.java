@@ -77,7 +77,6 @@ public class AddPois {
     }
     public Bitmap zoomImage(Bitmap bgimage, double newWidth,
                                    double newHeight) {
-
         float width = bgimage.getWidth();
         float height = bgimage.getHeight();
         Matrix matrix = new Matrix();

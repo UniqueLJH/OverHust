@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import android.content.Context;
@@ -180,7 +181,9 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
         if (SearchFragment.KEY == 5) {
             imageUrls = Images.cc_image_urls;
         }
-        Log.e("test1", "ok");
+        if(SearchFragment.KEY==6){
+            imageUrls=Images.fwcs_image_urls;
+        }
     }
 
     /**
@@ -198,7 +201,6 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
             columnWidth = firstColumn.getWidth();
             loadOnce = true;
             loadMoreImages();
-            Log.e("test2", "ok");
         }
     }
 
@@ -226,7 +228,7 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
 
                 //Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT)
                 //        .show();
-                AppMsg appMsg = AppMsg.makeText(mMainActivity, "正在加载...", new AppMsg.Style(800, R.color.overhust));
+                AppMsg appMsg = AppMsg.makeText(mMainActivity, "正在加载...", new AppMsg.Style(800, R.color.meself),R.layout.appmsg_green);
                 appMsg.setLayoutGravity(Gravity.BOTTOM);
                 appMsg.show();
 
@@ -242,13 +244,13 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
             } else {
 //                Toast.makeText(getContext(), "已没有更多图片", Toast.LENGTH_SHORT)
 //                        .show();
-                AppMsg appMsg = AppMsg.makeText(mMainActivity, "已没有更多图片", new AppMsg.Style(500, R.color.overhust));
+                AppMsg appMsg = AppMsg.makeText(mMainActivity, "已没有更多图片", new AppMsg.Style(500, R.color.meself),R.layout.appmsg_green);
                 appMsg.setLayoutGravity(Gravity.BOTTOM);
                 appMsg.show();
             }
         } else {
             //Toast.makeText(getContext(), "未发现SD卡", Toast.LENGTH_SHORT).show();
-            AppMsg appMsg = AppMsg.makeText(mMainActivity, "未发现SD卡", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+            AppMsg appMsg = AppMsg.makeText(mMainActivity, "未发现SD卡", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
         }
@@ -369,8 +371,13 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
          * @param imageHeight 图片的高度
          */
         private void addImage(Bitmap bitmap, int imageWidth, int imageHeight) {
+            //生成随机数
+            int max = 2, min = 1;
+            Random random = new Random();
+            int s = random.nextInt(max) % (max - min + 1) + min;
+            int mImageHeight = imageWidth * s;
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    imageWidth, imageHeight);
+                    imageWidth, mImageHeight);
             if (mImageView != null) {
                 mImageView.setImageBitmap(bitmap);
             } else {
@@ -389,7 +396,7 @@ public class ImageScrollView extends ScrollView implements OnTouchListener {
                         getContext().startActivity(intent);
                     }
                 });
-                findColumnToAdd(imageView, imageHeight).addView(imageView);
+                findColumnToAdd(imageView, mImageHeight).addView(imageView);
                 imageViewList.add(imageView);
             }
         }

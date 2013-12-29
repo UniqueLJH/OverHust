@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -32,6 +33,8 @@ public class SettingActivity extends SwipeBackActivity {
 
     private ImageView settingBackView;
     private ImageView feedbackView;
+    private ImageView aboutUsView;
+    private ImageView aboutOverHust;
 
     private MainActivity mMainActivity;
     private SwipeBackLayout mSwipeBackLayout;
@@ -63,6 +66,8 @@ public class SettingActivity extends SwipeBackActivity {
     public void findViews() {
         settingBackView = (ImageView) findViewById(R.id.settingback);
         feedbackView = (ImageView) findViewById(R.id.feedback);
+        aboutUsView=(ImageView)findViewById(R.id.aboutus);
+        aboutOverHust=(ImageView)findViewById(R.id.about_overhust);
     }
 
     public void viewOnClick() {
@@ -70,6 +75,21 @@ public class SettingActivity extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
                 showFeedbackAlert();
+            }
+        });
+        aboutUsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent aboutusIntent=new Intent(SettingActivity.this,AboutUs.class);
+                startActivity(aboutusIntent);
+            }
+        });
+        aboutOverHust.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent aboutOverHustIntent=new Intent(SettingActivity.this,AboutOverHust.class);
+                startActivity(aboutOverHustIntent);
+
             }
         });
     }
@@ -102,7 +122,7 @@ public class SettingActivity extends SwipeBackActivity {
         String feedbackBody = feedbackEditText.getText().toString();
         String feedbackContact = contactEditText.getText().toString();
         if (feedbackBody.equals("")) {
-            AppMsg appMsg = AppMsg.makeText(this, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+            AppMsg appMsg = AppMsg.makeText(this, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
             Timer timer = new Timer();
@@ -119,7 +139,7 @@ public class SettingActivity extends SwipeBackActivity {
             }, 500);
         } else {
             SendFeedback mSendFeedback = new SendFeedback(feedbackBody, feedbackContact);
-            AppMsg appMsg = AppMsg.makeText(this, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust));
+            AppMsg appMsg = AppMsg.makeText(this, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust),R.layout.appmsg_green);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
         }
@@ -127,7 +147,7 @@ public class SettingActivity extends SwipeBackActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        AppMsg appMsg = AppMsg.makeText(this, "左滑返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust));
+        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
         appMsg.setLayoutGravity(Gravity.BOTTOM);
         appMsg.show();
         return false;

@@ -19,6 +19,7 @@ package com.devspark.appmsg;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -185,7 +186,7 @@ public class AppMsg {
     private static AppMsg makeText(Activity context, CharSequence text, Style style, View view, boolean floating, float textSize) {
         AppMsg result = new AppMsg(context);
 
-        view.setBackgroundResource(style.background);
+        //view.setBackgroundResource(style.background);
 
         TextView tv = (TextView) view.findViewById(android.R.id.message);
         if(textSize > 0) tv.setTextSize(textSize);
@@ -252,6 +253,11 @@ public class AppMsg {
         manager.add(this);
     }
 
+    public void hide(){
+        Message msg=new Message();
+        msg.what=0xc2007de1;
+        MsgManager.getInstance().handleMessage(msg);
+    }
     /**
      * @return <code>true</code> if the {@link AppMsg} is being displayed, else <code>false</code>.
      */

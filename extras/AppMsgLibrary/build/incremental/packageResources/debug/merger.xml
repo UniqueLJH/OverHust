@@ -6,6 +6,8 @@
             <file
                 path="/home/fhw/Documents/android-code/OverHustProject/extras/AppMsgLibrary/res/values/colors.xml"
                 qualifiers="" >
+                <color name="meself" >#FFFFFF
+                </color>
                 <color name="info" >#669900
                 </color>
                 <color name="confirm" >#FF8800

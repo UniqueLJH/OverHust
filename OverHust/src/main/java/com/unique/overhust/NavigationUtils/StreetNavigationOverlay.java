@@ -33,10 +33,10 @@ public class StreetNavigationOverlay extends ItemizedOverlay {
     public void onTap(int index, float x, float y) {
 
         // test 更新某个poi信息
-        Bitmap bitmap = Bitmap.createBitmap(mPois.get(1).marker);
-        StreetPoiData poi = mPois.get(index);
-        poi.updateMarker(bitmap, bitmap.toString());
-        refresh(index);
+//        Bitmap bitmap = Bitmap.createBitmap(mPois.get(1).marker);
+//        StreetPoiData poi = mPois.get(index);
+//        poi.updateMarker(bitmap, bitmap.toString());
+//        refresh(index);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class StreetNavigationOverlay extends ItemizedOverlay {
             // 近大远小功能
             final float minScale = 0.3f;
             final float maxScale = 1.5f;
-            final double minDis = 0;
+            final double minDis = 20;
             final double maxDis = 40;
             final double maxShowDis = 150;
 

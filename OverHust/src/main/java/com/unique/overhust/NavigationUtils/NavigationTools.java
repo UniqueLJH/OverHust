@@ -249,7 +249,7 @@ public class NavigationTools {
 
         }
         i = 1;
-        int[] tempangle = new int[30];
+        int[] tempangle = new int[60];
 
         while (angle[i] != 0) {
             if ((angle[i - 1] < 5) && (angle[i - 1] > 0) && (angle[i] < 5) && (angle[i] > 0) && (((angle[i - 1] - 1) % 4) == (angle[i] % 4))) {

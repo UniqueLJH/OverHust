@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
 //            Toast.makeText(getApplicationContext(), "再按一次退出程序",
 //                    Toast.LENGTH_SHORT).show();
-            AppMsg appMsg = AppMsg.makeText(this, "再次按返回键退出应用", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust));
+            AppMsg appMsg = AppMsg.makeText(this, "再次按返回键退出应用", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
             appMsg.setLayoutGravity(Gravity.BOTTOM);
             appMsg.show();
             exitTime = System.currentTimeMillis();

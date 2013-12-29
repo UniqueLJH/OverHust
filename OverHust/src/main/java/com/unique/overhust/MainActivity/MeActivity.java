@@ -32,6 +32,8 @@ public class MeActivity extends SwipeBackActivity {
     private ImageView meBackView;
     private SwipeBackLayout mSwipeBackLayout;
 
+    private ImageView navRecView,seaRecView,loveRecView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +46,8 @@ public class MeActivity extends SwipeBackActivity {
 //        }
 
         findViews();
-        meBackView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        setOnClick();
+
 
         //左侧滑动返回
         mSwipeBackLayout = getSwipeBackLayout();
@@ -59,8 +57,43 @@ public class MeActivity extends SwipeBackActivity {
 
     public void findViews() {
         meBackView = (ImageView) findViewById(R.id.meback);
+        navRecView=(ImageView)findViewById(R.id.navitationRecord);
+        seaRecView=(ImageView)findViewById(R.id.searchRecord);
+        loveRecView=(ImageView)findViewById(R.id.loveRecord);
     }
 
+    public void setOnClick(){
+        meBackView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        navRecView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAppMsg();
+            }
+        });
+        seaRecView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAppMsg();
+            }
+        });
+        loveRecView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAppMsg();
+            }
+        });
+    }
+
+    public void showAppMsg(){
+        AppMsg appMsg = AppMsg.makeText(this, "敬请期待", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
+        appMsg.setLayoutGravity(Gravity.TOP);
+        appMsg.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -99,7 +132,7 @@ public class MeActivity extends SwipeBackActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        AppMsg appMsg = AppMsg.makeText(this, "左滑返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust));
+        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
         appMsg.setLayoutGravity(Gravity.BOTTOM);
         appMsg.show();
         return false;

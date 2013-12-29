@@ -40,6 +40,7 @@ import com.tencent.street.overlay.ItemizedOverlay;
 import com.unique.overhust.CommonUtils.IsNetwork;
 import com.unique.overhust.MainActivity.MainActivity;
 import com.unique.overhust.MapUtils.OverHustLocation;
+import com.unique.overhust.NavigationUtils.NaviInfo;
 import com.unique.overhust.NavigationUtils.NavigationPoint;
 import com.unique.overhust.NavigationUtils.NavigationTools;
 import com.unique.overhust.NavigationUtils.StreetNavigationOverlay;
@@ -84,8 +85,12 @@ public class NavigationFragment extends Fragment implements TextWatcher {
 
     private MainActivity mMainActivity;
 
+
+
     //连网检查
     private IsNetwork mIsNetWork;
+    private NavigationTools navigationTools = null;
+    private NaviInfo naviInfo = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -181,9 +186,11 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                         public void run() {
                             // TODO Auto-generated method stub
                             //Toast.makeText(mContext, "请输入目的地", Toast.LENGTH_SHORT).show();
-                            AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入目的地", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+                            AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入目的地", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
                             appMsg.setLayoutGravity(Gravity.TOP);
                             appMsg.show();
+
+
                             return;
                         }
                     });
@@ -210,8 +217,8 @@ public class NavigationFragment extends Fragment implements TextWatcher {
 
     private void initStreatView(NavigationPoint startPoint, NavigationPoint endPoint) {
         // TODO Auto-generated method stub
-        NavigationTools navigationTools = new NavigationTools(startPoint, endPoint);
-
+        navigationTools = new NavigationTools(startPoint, endPoint);
+        naviInfo = new NaviInfo(getActivity(), navigationTools);
         addPoins(navigationTools.getPoints());
         mListener = new StreetViewListener() {
 
@@ -231,7 +238,15 @@ public class NavigationFragment extends Fragment implements TextWatcher {
             @Override
             public void onNetError() {
                 // TODO Auto-generated method stub
-                Toast.makeText(mContext, "errorNet", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "errorNet", Toast.LENGTH_SHORT).show();
+                mMainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppMsg appMsg = AppMsg.makeText(mMainActivity, "网络连接错误", new AppMsg.Style(2000, R.color.alert), R.layout.appmsg_red);
+                        appMsg.setLayoutGravity(Gravity.TOP);
+                        appMsg.show();
+                    }
+                });
             }
 
             @Override
@@ -249,6 +264,8 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                         //mRelativeLayout.setVisibility(View.GONE);
                         final a status = StreetViewShow.getInstance().getStreetStatus();
                         System.out.println("a" + status.a + "b" + status.b + "c" + status.c + "d" + status.d + "e" + status.e);
+                        NavigationPoint b = new NavigationPoint((double) status.c / 1E6, (double) status.d / 1E6);
+                        naviInfo.show(b);
 
 
                     }
@@ -259,7 +276,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
             @Override
             public void onDataError() {
                 // TODO Auto-generated method stub
-                Toast.makeText(mContext, "errorData", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "errorData", Toast.LENGTH_SHORT).show();
                 System.out.println("errorData");
             }
 
@@ -450,5 +467,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
     public void dismissDialog() {
         mDialog.dismiss();
     }
+
 
 }

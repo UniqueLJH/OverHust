@@ -32,10 +32,10 @@ public class StreetOverlay extends ItemizedOverlay {
     public void onTap(int index, float x, float y) {
 
         // test 更新某个poi信息
-        Bitmap bitmap = Bitmap.createBitmap(mPois.get(1).marker);
-        StreetPoiData poi = mPois.get(index);
-        poi.updateMarker(bitmap, bitmap.toString());
-        refresh(index);
+//        Bitmap bitmap = Bitmap.createBitmap(mPois.get(1).marker);
+//        StreetPoiData poi = mPois.get(index);
+//        poi.updateMarker(bitmap, bitmap.toString());
+//        refresh(index);
     }
 
     @Override

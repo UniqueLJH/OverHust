@@ -4,12 +4,15 @@ import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.devspark.appmsg.AppMsg;
 import com.unique.overhust.CommonUtils.ZoomImageView;
 import com.unique.overhust.R;
 
@@ -91,6 +94,14 @@ public class ImageDetailsActivity extends SwipeBackActivity {
             View rootView = inflater.inflate(R.layout.fragment_image_details, container, false);
             return rootView;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
+        appMsg.setLayoutGravity(Gravity.BOTTOM);
+        appMsg.show();
+        return false;
     }
 
     @Override

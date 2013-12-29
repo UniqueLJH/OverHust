@@ -14,7 +14,8 @@ public final class R {
         public static int alert=0x7f030000;
         public static int confirm=0x7f030001;
         public static int info=0x7f030002;
-        public static int overhust=0x7f030003;
+        public static int meself=0x7f030003;
+        public static int overhust=0x7f030004;
     }
     public static final class layout {
         public static int app_msg=0x7f020000;

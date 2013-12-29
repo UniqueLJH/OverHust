@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment implements TextWatcher {
             public void onClick(View v) {
                 if (mEditText.getText().toString().equals("")) {
                     //Toast.makeText(mContext, "请输入查找类别", Toast.LENGTH_SHORT).show();
-                    AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入查找类别", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+                    AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入查找类别", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
                     appMsg.setLayoutGravity(Gravity.TOP);
                     appMsg.show();
                 } else {
@@ -99,11 +99,13 @@ public class SearchFragment extends Fragment implements TextWatcher {
                         KEY = 4;
                     } else if (mEditText.getText().toString().contains("餐厅")) {
                         KEY = 1;
-                    } else if (mEditText.getText().toString().contains("操场 ")) {
+                    } else if (mEditText.getText().toString().contains("操场")) {
                         KEY = 5;
-                    } else {
+                    } else if(mEditText.getText().toString().contains("服务措施")){
+                        KEY=6;
+                    } else{
                         //Toast.makeText(mContext, "此类别目前没有图片", Toast.LENGTH_SHORT).show();
-                        AppMsg appMsg = AppMsg.makeText(mMainActivity, "此类别目前没有图片", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert));
+                        AppMsg appMsg = AppMsg.makeText(mMainActivity, "此类别目前没有图片", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
                         appMsg.setLayoutGravity(Gravity.TOP);
                         appMsg.show();
                         return;

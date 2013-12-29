@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.devspark.appmsg.AppMsg;
 import com.tencent.street.StreetThumbListener;
 import com.tencent.street.StreetViewListener;
 import com.tencent.street.StreetViewShow;
@@ -57,6 +59,10 @@ public class MapFragment extends Fragment implements StreetViewListener {
     //连网检查
     private IsNetwork mIsNetWork;
 
+    private boolean isHustFlag = true;
+
+    private AppMsg mAppMsg;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
         mContext = getActivity();
         findViews();
         showDialog();
+
 
         mIsNetWork = new IsNetwork(mContext);
         mIsNetWork.isNetwork();
@@ -80,7 +87,6 @@ public class MapFragment extends Fragment implements StreetViewListener {
             }
         };
         mLocation = new OverHustLocation(mContext);
-
         String key = "4fb2821bde027e675565c75b32245ad5";
         currentCenter = new GeoPoint((int) (mLocation.getiLatitu() * 1E6), (int) (mLocation.getiLongti() * 1E6));
         StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -170, 0, key);
@@ -137,8 +143,8 @@ public class MapFragment extends Fragment implements StreetViewListener {
             long a = System.currentTimeMillis();
             AddPois mAddPois = new AddPois(mContext);
             pois = mAddPois.getPois();
-            long b = System.currentTimeMillis()-a;
-            System.out.println("tim111"+b);
+            long b = System.currentTimeMillis() - a;
+            System.out.println("tim111" + b);
             overlay = new StreetOverlay(pois);
             overlay.populate();
         }
@@ -166,11 +172,48 @@ public class MapFragment extends Fragment implements StreetViewListener {
         });
     }
 
+    public void isHust() {
+        if (mLocation.getiLatitu() < 30.4 || mLocation.getiLatitu() > 30.6) {
+            if (mLocation.getiLongti() < 114.4 || mLocation.getiLongti() > 114.5) {
+                mAppMsg = AppMsg.makeText(mMainActivity, "", new AppMsg.Style(10000, R.color.overhust), R.layout.is_not_in_hust);
+                mAppMsg.setLayoutGravity(Gravity.TOP);
+                mAppMsg.show();
+                if (mAppMsg.isFloating() == true) {
+                    ImageView goHust = (ImageView) mAppMsg.getView().findViewById(R.id.go_hust);
+                    goHust.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mAppMsg.cancel();
+                            loadHustView();
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    public void loadHustView() {
+        String key = "4fb2821bde027e675565c75b32245ad5";
+        currentCenter = new GeoPoint(30508874, 114413638);
+        StreetViewShow.getInstance().destory();
+        streetView.removeAllViews();
+        StreetViewShow.getInstance().showStreetView(mContext, currentCenter, 100, this, -35, 0, key);
+    }
+
     @Override
     public void onNetError() {
         Log.e("neterror", "onNetError");
         dismissDialog();
-        mapPreView.setVisibility(View.VISIBLE);
+        mMainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mapPreView.setVisibility(View.VISIBLE);
+                AppMsg appMsg = AppMsg.makeText(mMainActivity, "网络连接错误", new AppMsg.Style(2000, R.color.alert), R.layout.appmsg_red);
+                appMsg.setLayoutGravity(Gravity.TOP);
+                appMsg.show();
+            }
+        });
+
     }
 
     @Override
@@ -193,6 +236,10 @@ public class MapFragment extends Fragment implements StreetViewListener {
                 mStreetview.setVisibility(View.VISIBLE);
             }
         });
+        if (isHustFlag == true) {
+            isHust();
+            isHustFlag = false;
+        }
     }
 
     @Override

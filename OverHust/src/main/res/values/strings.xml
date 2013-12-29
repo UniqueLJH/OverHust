@@ -14,11 +14,12 @@
     <string name="title_activity_image_details">ImageDetailsActivity</string>
     <string name="title_activity_guide">GuideActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
-
     <string name="alert_dialog_feedback">意见反馈</string>
     <string name="alert_dialog_ok">提交</string>
     <string name="alert_dialog_cancel">取消</string>
     <string name="alert_dialog_feedback_textview_first">您的反馈</string>
     <string name="alert_dialog_feedback_textview_two">您的联系方式（选填）</string>
+    <string name="title_activity_about_us">AboutUs</string>
+    <string name="title_activity_about_over_hust">AboutOverHust</string>
 
 </resources>
