@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aphidmobile.flip.FlipViewController;
+import com.unique.overhust.Feedback.SendFeedback;
 import com.unique.overhust.FirstInto.GuideAdapter;
 import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.R;
@@ -27,7 +28,7 @@ public class StartActivity extends Activity {
 
     private OverHustLocation mOverHustLocation;
 
-    private boolean isFirstIn;
+    private boolean isFirstIn, isCheckInstall;
     private SharedPreferences preferences;
     private FlipViewController flipView;
 
@@ -39,10 +40,17 @@ public class StartActivity extends Activity {
 
         preferences = getSharedPreferences("OverHust", MODE_PRIVATE);
         isFirstIn = preferences.getBoolean("isFirstIn", true);
+        isCheckInstall = preferences.getBoolean("isCheckInstall", false);
         mContext = this;
 
         if (!isFirstIn) {
             noFirstUse();
+            if (isCheckInstall == false) {
+                SendFeedback mSendFeedback = new SendFeedback("overhust", "安装", 2);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("isCheckInstall", true);
+                editor.commit();
+            }
         } else {
             flipView = new FlipViewController(this, FlipViewController.HORIZONTAL);
             flipView.setAdapter(new GuideAdapter(this));
@@ -66,7 +74,6 @@ public class StartActivity extends Activity {
                     }
                 }
             });
-
             //第一次使用标记值更改
             updateIsFirstIn();
         }

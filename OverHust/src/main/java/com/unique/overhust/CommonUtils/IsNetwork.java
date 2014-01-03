@@ -11,6 +11,8 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.unique.overhust.MainActivity.MainActivity;
+import com.unique.overhust.R;
+import com.unique.overhust.UI.NetworkErrorDialog;
 import com.unique.overhust.fragment.MapFragment;
 
 import static android.app.PendingIntent.getActivity;
@@ -37,11 +39,15 @@ public class IsNetwork {
         mNetworkInfo = mConnManager.getActiveNetworkInfo();
         if (mNetworkInfo != null) {
             if (mNetworkInfo.isAvailable() == false) {
-                showDialog();
+                //showDialog();
+                NetworkErrorDialog mDialog=new NetworkErrorDialog(mContext, R.style.NetworkErrorDialog);
+                mDialog.show();
                 isNetwork = false;
             }
         } else {
-            showDialog();
+            //showDialog();
+            NetworkErrorDialog mDialog=new NetworkErrorDialog(mContext,R.style.NetworkErrorDialog);
+            mDialog.show();
             isNetwork = false;
         }
     }

@@ -17,8 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.devspark.appmsg.AppMsg;
+import com.unique.overhust.CommonUtils.IsNetwork;
 import com.unique.overhust.Feedback.SendFeedback;
 import com.unique.overhust.R;
+import com.unique.overhust.UI.FeedbackDialog;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -66,54 +68,63 @@ public class SettingActivity extends SwipeBackActivity {
     public void findViews() {
         settingBackView = (ImageView) findViewById(R.id.settingback);
         feedbackView = (ImageView) findViewById(R.id.feedback);
-        aboutUsView=(ImageView)findViewById(R.id.aboutus);
-        aboutOverHust=(ImageView)findViewById(R.id.about_overhust);
+        aboutUsView = (ImageView) findViewById(R.id.aboutus);
+        aboutOverHust = (ImageView) findViewById(R.id.about_overhust);
     }
 
     public void viewOnClick() {
         feedbackView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFeedbackAlert();
+                showFeedbackDialog();
+                netWork();
             }
         });
         aboutUsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent aboutusIntent=new Intent(SettingActivity.this,AboutUs.class);
+                Intent aboutusIntent = new Intent(SettingActivity.this, AboutUs.class);
                 startActivity(aboutusIntent);
             }
         });
         aboutOverHust.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent aboutOverHustIntent=new Intent(SettingActivity.this,AboutOverHust.class);
+                Intent aboutOverHustIntent = new Intent(SettingActivity.this, AboutOverHust.class);
                 startActivity(aboutOverHustIntent);
 
             }
         });
     }
 
-    public void showFeedbackAlert() {
-        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
-        final View feedbackView = factory.inflate(R.layout.alert_dialog_feedback, null);
-        new AlertDialog.Builder(SettingActivity.this)
-                .setTitle(R.string.alert_dialog_feedback)
-                .setView(feedbackView)
-                .setCancelable(false)
-                .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        commitFeedback(feedbackView);
-                    }
-                })
-                .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+    public void netWork() {
+        //网络检查
+        IsNetwork mIsNetwork=new IsNetwork(this);
+        mIsNetwork.isNetwork();
+    }
 
-                    }
-                })
-                .create().show();
+    public void showFeedbackDialog() {
+//        LayoutInflater factory = LayoutInflater.from(getApplicationContext());
+//        final View feedbackView = factory.inflate(R.layout.alert_dialog_feedback, null);
+//        new AlertDialog.Builder(SettingActivity.this)
+//                .setTitle(R.string.alert_dialog_feedback)
+//                .setView(feedbackView)
+//                .setCancelable(false)
+//                .setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        commitFeedback(feedbackView);
+//                    }
+//                })
+//                .setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                })
+//                .create().show();
+        FeedbackDialog mFeedbackDialog=new FeedbackDialog(this,R.style.FeedbackDialog);
+        mFeedbackDialog.show();
     }
 
     public void commitFeedback(View feedbackView) {
@@ -122,7 +133,7 @@ public class SettingActivity extends SwipeBackActivity {
         String feedbackBody = feedbackEditText.getText().toString();
         String feedbackContact = contactEditText.getText().toString();
         if (feedbackBody.equals("")) {
-            AppMsg appMsg = AppMsg.makeText(this, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
+            AppMsg appMsg = AppMsg.makeText(this, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert), R.layout.appmsg_red);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
             Timer timer = new Timer();
@@ -132,14 +143,14 @@ public class SettingActivity extends SwipeBackActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showFeedbackAlert();
+                            showFeedbackDialog();
                         }
                     });
                 }
             }, 500);
         } else {
-            SendFeedback mSendFeedback = new SendFeedback(feedbackBody, feedbackContact);
-            AppMsg appMsg = AppMsg.makeText(this, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust),R.layout.appmsg_green);
+            SendFeedback mSendFeedback = new SendFeedback(feedbackBody, feedbackContact, 1);
+            AppMsg appMsg = AppMsg.makeText(this, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust), R.layout.appmsg_green);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
         }
@@ -147,7 +158,7 @@ public class SettingActivity extends SwipeBackActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
+        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust), R.layout.appmsg_green);
         appMsg.setLayoutGravity(Gravity.BOTTOM);
         appMsg.show();
         return false;

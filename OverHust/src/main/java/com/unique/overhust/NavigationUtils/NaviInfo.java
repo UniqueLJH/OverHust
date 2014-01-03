@@ -39,13 +39,15 @@ public class NaviInfo {
         int distance = distance(infoPoints.get(position), point)-20;
             if (distance < 0)
             {
-                if (position < infoPoints.size() - 2) {
+                if (position < infoPoints.size() - 1) {
                     position++;
+                    if(position == infoPoints.size() - 1){
+                        isEnd = true;
+                    }
 
                     return;
-                }else {
-                    isEnd = true;
                 }
+
             }
         if(isEnd){
 

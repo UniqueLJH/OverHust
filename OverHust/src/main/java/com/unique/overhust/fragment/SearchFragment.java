@@ -71,21 +71,20 @@ public class SearchFragment extends Fragment implements TextWatcher {
 
         findViews();
         mInputMethodManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        mInputMethodManager.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN,
-                InputMethodManager.HIDE_NOT_ALWAYS);
+//        mInputMethodManager.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_HIDDEN,
+//                InputMethodManager.HIDE_NOT_ALWAYS);
 
         mAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_expandable_list_item_1, mStrings);
         mListView.setAdapter(mAdapter);
         mListView.setTextFilterEnabled(true);
         mListView.setOnItemClickListener(new ListViewListener());
 
-
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mEditText.getText().toString().equals("")) {
                     //Toast.makeText(mContext, "请输入查找类别", Toast.LENGTH_SHORT).show();
-                    AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入查找类别", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
+                    AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入查找类别", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert), R.layout.appmsg_red);
                     appMsg.setLayoutGravity(Gravity.TOP);
                     appMsg.show();
                 } else {
@@ -101,11 +100,11 @@ public class SearchFragment extends Fragment implements TextWatcher {
                         KEY = 1;
                     } else if (mEditText.getText().toString().contains("操场")) {
                         KEY = 5;
-                    } else if(mEditText.getText().toString().contains("服务措施")){
-                        KEY=6;
-                    } else{
+                    } else if (mEditText.getText().toString().contains("服务措施")) {
+                        KEY = 6;
+                    } else {
                         //Toast.makeText(mContext, "此类别目前没有图片", Toast.LENGTH_SHORT).show();
-                        AppMsg appMsg = AppMsg.makeText(mMainActivity, "此类别目前没有图片", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
+                        AppMsg appMsg = AppMsg.makeText(mMainActivity, "此类别目前没有图片", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert), R.layout.appmsg_red);
                         appMsg.setLayoutGravity(Gravity.TOP);
                         appMsg.show();
                         return;
@@ -143,7 +142,6 @@ public class SearchFragment extends Fragment implements TextWatcher {
                               int count) {
         // TODO Auto-generated method stub
         String newText = s.toString();
-
         if (TextUtils.isEmpty(newText)) {
             dismissList();
             mAdapter.getFilter().filter(s);
@@ -151,8 +149,6 @@ public class SearchFragment extends Fragment implements TextWatcher {
             showList();
             mAdapter.getFilter().filter(s);
         }
-
-
     }
 
     private void dismissList() {
@@ -173,14 +169,12 @@ public class SearchFragment extends Fragment implements TextWatcher {
 
     }
 
-
     @Override
     public void afterTextChanged(Editable s) {
 
     }
 
     class ListViewListener implements AdapterView.OnItemClickListener {
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String search_results = mAdapter.getItem(position);
@@ -188,5 +182,4 @@ public class SearchFragment extends Fragment implements TextWatcher {
             dismissList();
         }
     }
-
 }

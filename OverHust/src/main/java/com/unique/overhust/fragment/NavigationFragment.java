@@ -86,7 +86,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
     private MainActivity mMainActivity;
 
 
-
     //连网检查
     private IsNetwork mIsNetWork;
     private NavigationTools navigationTools = null;
@@ -98,7 +97,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
 
         streetView = inflater
                 .inflate(R.layout.fragment_navigation, container, false);
-
 
         mView = (LinearLayout) streetView.findViewById(R.id.streetlayout);
 
@@ -115,7 +113,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
         mContext = getActivity();
 
         imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_SHOWN,
+        imm.toggleSoftInput(InputMethodManager.RESULT_UNCHANGED_HIDDEN,
                 InputMethodManager.HIDE_NOT_ALWAYS);
 
         mAdapter = new ArrayAdapter<String>(getActivity(),
@@ -135,30 +133,21 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                                     int position, long id) {
                 // TODO Auto-generated method stub
                 //mRelativeLayout.setVisibility(View.GONE);
-
                 String aString = mAdapter.getItem(position);
                 if (startEditText.isFocused()) {
                     startEditText.setText(aString);
-
-
                 }
                 if (endEditText.isFocused()) {
                     endEditText.setText(mAdapter.getItem(position));
-
                 }
-
                 dismissList();
-
-
             }
-
         });
         mImageView.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-
                 NavigationPoint startPoint;
                 NavigationPoint endPoint;
                 String startString = startEditText.getText().toString();
@@ -179,9 +168,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                 if (!isChecked) {
                     return;
                 } else if (endEditText.getText().toString().equals("")) {
-
                     getActivity().runOnUiThread(new Runnable() {
-
                         @Override
                         public void run() {
                             // TODO Auto-generated method stub
@@ -189,28 +176,21 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                             AppMsg appMsg = AppMsg.makeText(mMainActivity, "请输入目的地", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert),R.layout.appmsg_red);
                             appMsg.setLayoutGravity(Gravity.TOP);
                             appMsg.show();
-
-
                             return;
                         }
                     });
                 } else {
                     endPoint = new NavigationPoint(endString);
                     initStreatView(startPoint, endPoint);
-
                 }
 
             }
 
-
         });
         startEditText.addTextChangedListener(this);
-
         endEditText.addTextChangedListener(this);
-
         mIsNetWork = new IsNetwork(mContext);
         mIsNetWork.isNetwork();
-
 
         return streetView;
     }
@@ -221,14 +201,12 @@ public class NavigationFragment extends Fragment implements TextWatcher {
         naviInfo = new NaviInfo(getActivity(), navigationTools);
         addPoins(navigationTools.getPoints());
         mListener = new StreetViewListener() {
-
             @Override
             public void onViewReturn(final View arg0) {
                 // TODO Auto-generated method stub
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         mStreetView = arg0;
                         mView.addView(mStreetView);
                     }
@@ -266,11 +244,8 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                         System.out.println("a" + status.a + "b" + status.b + "c" + status.c + "d" + status.d + "e" + status.e);
                         NavigationPoint b = new NavigationPoint((double) status.c / 1E6, (double) status.d / 1E6);
                         naviInfo.show(b);
-
-
                     }
                 });
-
             }
 
             @Override
@@ -289,9 +264,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
             @Override
             public ItemizedOverlay getOverlay() {
                 // TODO Auto-generated method stub
-
                 return overlay;
-
             }
         };
         System.out.println("centre" + navigationTools.getPoints().get(0).getiLatitu() + navigationTools.getPoints().get(0).getiLatitu());
@@ -299,9 +272,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
         //center=new GeoPoint((int)(30.508809 * 1E6),(int)(114.43087 * 1E6));
         StreetViewShow.getInstance().showStreetView(mContext, center, 100,
                 mListener, 0, 0, key);
-
         showDialog();
-
     }
 
     private void addPoins(ArrayList<NavigationPoint> points) {
@@ -314,7 +285,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                 getBmhaha(R.drawable.navi_start),
                 getBmhaha(R.drawable.navi_start), 0));
 
-
         for (int i = 1; i < points.size() - 1; i++) {
             NavigationPoint point = points.get(i);
             switch (point.getAngle()) {
@@ -323,7 +293,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                             (int) (point.getiLongti() * 1E6),
                             getBm(R.drawable.left),
                             getBm(R.drawable.left), 0));
-
                     break;
                 case 1:
                     pois.add(new StreetPoiData((int) (point.getiLatitu() * 1E6),
@@ -331,7 +300,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                             getBm(R.drawable.right),
                             getBm(R.drawable.right), 0));
                     break;
-
                 default:
                     System.out.println("angle" + point.getAngle());
                     pois.add(new StreetPoiData((int) (point.getiLatitu() * 1E6),
@@ -339,9 +307,7 @@ public class NavigationFragment extends Fragment implements TextWatcher {
                             getBm(R.drawable.up),
                             getBm(R.drawable.up), 0));
                     break;
-
             }
-
         }
         int i = points.size() - 1;
         pois.add(new StreetPoiData((int) (points.get(i).getiLatitu() * 1E6),
@@ -360,7 +326,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
         options.inScaled = false;
         options.inSampleSize = 4;
 
-
         return BitmapFactory.decodeResource(getResources(), resId, options);
     }
 
@@ -371,10 +336,8 @@ public class NavigationFragment extends Fragment implements TextWatcher {
         options.inInputShareable = true;
         options.inScaled = false;
 
-
         return BitmapFactory.decodeResource(getResources(), resId, options);
     }
-
 
     @Override
     public void onDestroy() {
@@ -417,8 +380,6 @@ public class NavigationFragment extends Fragment implements TextWatcher {
             showList();
             mAdapter.getFilter().filter(s);
         }
-
-
     }
 
     private void dismissList() {
@@ -467,6 +428,4 @@ public class NavigationFragment extends Fragment implements TextWatcher {
     public void dismissDialog() {
         mDialog.dismiss();
     }
-
-
 }

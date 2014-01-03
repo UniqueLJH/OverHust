@@ -28,8 +28,8 @@ tasks.withType(Compile) {
     options.encoding = "UTF-8"
 }
 
-String VERSION_NAME = "v0.7"
-int VERSION_CODE = 1
+String VERSION_NAME = "v0.8"
+int VERSION_CODE = 2
 
 android {
     compileSdkVersion 19
@@ -42,22 +42,6 @@ android {
         versionName VERSION_NAME
     }
 
-    signingConfigs {
-        OverHust {
-            storeFile file("../dsnc.keystore")
-            storePassword "overhust"
-            keyAlias "overhust"
-            keyPassword "overhust"
-        }
-    }
-
-    buildTypes {
-        release {
-            runProguard true
-            proguardFile 'proguard-project.txt'
-            signingConfig signingConfigs.OverHust
-        }
-    }
 }
 
 
