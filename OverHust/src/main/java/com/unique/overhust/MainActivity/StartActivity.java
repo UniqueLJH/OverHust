@@ -39,8 +39,8 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         preferences = getSharedPreferences("OverHust", MODE_PRIVATE);
-        isFirstIn = preferences.getBoolean("isFirstIn", true);
-        isCheckInstall = preferences.getBoolean("isCheckInstall", false);
+        isFirstIn = preferences.getBoolean("isFirstIn_v0.8", true);
+        isCheckInstall = preferences.getBoolean("isCheckInstall_v0.8", false);
         mContext = this;
 
         if (!isFirstIn) {
@@ -48,7 +48,7 @@ public class StartActivity extends Activity {
             if (isCheckInstall == false) {
                 SendFeedback mSendFeedback = new SendFeedback("overhust", "安装", 2);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("isCheckInstall", true);
+                editor.putBoolean("isCheckInstall_v0.8", true);
                 editor.commit();
             }
         } else {
@@ -114,7 +114,7 @@ public class StartActivity extends Activity {
 
     public void updateIsFirstIn() {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("isFirstIn", false);
+        editor.putBoolean("isFirstIn_v0.8", false);
         editor.commit();
     }
 

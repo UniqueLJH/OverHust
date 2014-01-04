@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -30,6 +32,16 @@ public class FeedbackDialog extends Dialog {
         this.mActivity = activity;
     }
 
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    show();
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +55,19 @@ public class FeedbackDialog extends Dialog {
         fdCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commitFeedback();
-                if(commitFeedback()==true){
+                if (commitFeedback() == true) {
                     dismiss();
-                }else{
-
+                } else {
+                    dismiss();
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Message message=new Message();
+                            message.what=1;
+                            mHandler.sendMessage(message);
+                        }
+                    }, 500);
                 }
             }
         });
@@ -67,19 +87,20 @@ public class FeedbackDialog extends Dialog {
     @Override
     public void dismiss() {
         super.dismiss();
+        fdDetails.setText("");
     }
 
     public boolean commitFeedback() {
         String feedbackBody = fdDetails.getText().toString();
         String feedbackContact = fdContact.getText().toString();
         if (feedbackBody.equals("")) {
-            AppMsg appMsg = AppMsg.makeText(mActivity, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert), R.layout.appmsg_red);
+            AppMsg appMsg = AppMsg.makeText(mActivity, "请输入反馈内容", new AppMsg.Style(500, R.color.alert), R.layout.appmsg_red);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
             return false;
         } else {
             SendFeedback mSendFeedback = new SendFeedback(feedbackBody, feedbackContact, 1);
-            AppMsg appMsg = AppMsg.makeText(mActivity, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust), R.layout.appmsg_green);
+            AppMsg appMsg = AppMsg.makeText(mActivity, "谢谢您的反馈", new AppMsg.Style(3000, R.color.overhust), R.layout.appmsg_green);
             appMsg.setLayoutGravity(Gravity.TOP);
             appMsg.show();
             return true;

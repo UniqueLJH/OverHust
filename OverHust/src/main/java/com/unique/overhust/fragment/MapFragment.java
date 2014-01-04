@@ -31,6 +31,7 @@ import com.unique.overhust.MapUtils.OverHustLocation;
 import com.unique.overhust.MapUtils.StreetOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
+import com.unique.overhust.UI.LoadStreetDialog;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class MapFragment extends Fragment implements StreetViewListener {
     private ViewGroup streetView;
 
     private ImageView streetImageview, mapPreView, footImageView;
-    private ProgressDialog mDialog;
+    private LoadStreetDialog mDialog;
 
     private Handler mHandler, locationHandler;
 
@@ -248,14 +249,9 @@ public class MapFragment extends Fragment implements StreetViewListener {
     }
 
     //加载progressDialog
-    public ProgressDialog showDialog() {
-        mDialog = new ProgressDialog(mContext);
-        mDialog.setTitle("OverHust");
-        mDialog.setMessage("正在加载街景...");
-        mDialog.setIndeterminate(true);
-        mDialog.setCancelable(false);
+    public LoadStreetDialog showDialog() {
+        mDialog=new LoadStreetDialog(mContext,R.style.LoadStreetDialog);
         mDialog.show();
-        mDialog.setOnKeyListener(onKeyListener);
 
         return mDialog;
     }

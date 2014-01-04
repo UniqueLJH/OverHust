@@ -96,13 +96,13 @@ public class ImageDetailsActivity extends SwipeBackActivity {
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
-        appMsg.setLayoutGravity(Gravity.BOTTOM);
-        appMsg.show();
-        return false;
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
+//        appMsg.setLayoutGravity(Gravity.BOTTOM);
+//        appMsg.show();
+//        return false;
+//    }
 
     @Override
     protected void onDestroy() {

@@ -46,6 +46,7 @@ import com.unique.overhust.NavigationUtils.NavigationTools;
 import com.unique.overhust.NavigationUtils.StreetNavigationOverlay;
 import com.unique.overhust.MapUtils.StreetPoiData;
 import com.unique.overhust.R;
+import com.unique.overhust.UI.LoadStreetDialog;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ import java.util.ArrayList;
 public class NavigationFragment extends Fragment implements TextWatcher {
     private View streetView;
     private ViewGroup mView;
-    private ProgressDialog mDialog;
+    private LoadStreetDialog mDialog;
 
     private ImageView mImage;
 
@@ -409,12 +410,8 @@ public class NavigationFragment extends Fragment implements TextWatcher {
     }
 
     //加载progressDialog
-    public ProgressDialog showDialog() {
-        mDialog = new ProgressDialog(mContext);
-        mDialog.setTitle("OverHust");
-        mDialog.setMessage("正在加载导航...");
-        mDialog.setIndeterminate(true);
-        mDialog.setCancelable(true);
+    public LoadStreetDialog showDialog() {
+        mDialog=new LoadStreetDialog(mContext,R.style.LoadStreetDialog);
         mDialog.show();
 
         startEditText.setVisibility(View.INVISIBLE);

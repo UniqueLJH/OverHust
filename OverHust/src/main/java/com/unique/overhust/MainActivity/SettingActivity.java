@@ -99,7 +99,7 @@ public class SettingActivity extends SwipeBackActivity {
 
     public void netWork() {
         //网络检查
-        IsNetwork mIsNetwork=new IsNetwork(this);
+        IsNetwork mIsNetwork = new IsNetwork(this);
         mIsNetwork.isNetwork();
     }
 
@@ -123,46 +123,17 @@ public class SettingActivity extends SwipeBackActivity {
 //                    }
 //                })
 //                .create().show();
-        FeedbackDialog mFeedbackDialog=new FeedbackDialog(this,R.style.FeedbackDialog);
+        FeedbackDialog mFeedbackDialog = new FeedbackDialog(this, R.style.FeedbackDialog);
         mFeedbackDialog.show();
     }
 
-    public void commitFeedback(View feedbackView) {
-        EditText feedbackEditText = (EditText) feedbackView.findViewById(R.id.feedback);
-        EditText contactEditText = (EditText) feedbackView.findViewById(R.id.contact);
-        String feedbackBody = feedbackEditText.getText().toString();
-        String feedbackContact = contactEditText.getText().toString();
-        if (feedbackBody.equals("")) {
-            AppMsg appMsg = AppMsg.makeText(this, "请输入反馈内容", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.alert), R.layout.appmsg_red);
-            appMsg.setLayoutGravity(Gravity.TOP);
-            appMsg.show();
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showFeedbackDialog();
-                        }
-                    });
-                }
-            }, 500);
-        } else {
-            SendFeedback mSendFeedback = new SendFeedback(feedbackBody, feedbackContact, 1);
-            AppMsg appMsg = AppMsg.makeText(this, "谢谢您的反馈", new AppMsg.Style(2000, R.color.overhust), R.layout.appmsg_green);
-            appMsg.setLayoutGravity(Gravity.TOP);
-            appMsg.show();
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        AppMsg appMsg = AppMsg.makeText(this, "左滑边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust), R.layout.appmsg_green);
-        appMsg.setLayoutGravity(Gravity.BOTTOM);
-        appMsg.show();
-        return false;
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        AppMsg appMsg = AppMsg.makeText(this, "左侧边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust), R.layout.appmsg_green);
+//        appMsg.setLayoutGravity(Gravity.BOTTOM);
+//        appMsg.show();
+//        return false;
+//    }
 
     /**
      * A placeholder fragment containing a simple view.

@@ -49,13 +49,13 @@ public class AboutOverHust extends SwipeBackActivity {
         setContentView(flipView);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        AppMsg appMsg = AppMsg.makeText(this, "左侧边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
-        appMsg.setLayoutGravity(Gravity.BOTTOM);
-        appMsg.show();
-        return false;
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        AppMsg appMsg = AppMsg.makeText(this, "左侧边缘滑动返回", new AppMsg.Style(AppMsg.LENGTH_SHORT, R.color.overhust),R.layout.appmsg_green);
+//        appMsg.setLayoutGravity(Gravity.BOTTOM);
+//        appMsg.show();
+//        return false;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
